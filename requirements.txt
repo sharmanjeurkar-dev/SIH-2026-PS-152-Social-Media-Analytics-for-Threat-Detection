@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+elasticsearch[async]
+redis
+neo4j
+pydantic
