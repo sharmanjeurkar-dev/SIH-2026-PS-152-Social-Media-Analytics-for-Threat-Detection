@@ -1,11 +1,12 @@
 import json
 import redis.asyncio as redis
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from api_routes import analytics, network
+from api_routes import analytics, network, auth  # <-- Added auth here
 
 app = FastAPI(title="NTRO Analytics Command Center")
 
-# Include REST routing modules from the renamed folder
+# Include REST routing modules
+app.include_router(auth.router, tags=["Authentication"]) # <-- Added this line
 app.include_router(analytics.router, tags=["Analytics"])
 app.include_router(network.router, tags=["Network Intelligence"])
 
