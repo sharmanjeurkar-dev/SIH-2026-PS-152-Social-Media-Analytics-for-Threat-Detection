@@ -1,6 +1,8 @@
 import asyncio
 from elasticsearch import AsyncElasticsearch
 from neo4j import AsyncGraphDatabase
+from database import engine, Base
+from models.user import User
 
 async def setup_elasticsearch():
     """Defines the index and mappings for Member 2's NLP output."""
@@ -41,10 +43,18 @@ async def setup_neo4j():
         
     await driver.close()
 
+async def setup_postgres():
+    """Generates the relational tables for authentication."""
+    async with engine.begin() as conn:
+        # This creates the tables based on the models defined
+        await conn.run_sync(Base.metadata.create_all)
+        print("PostgreSQL: Officer authentication tables established.")
+
 async def main():
     print("Initializing Database Schemas...")
     await setup_elasticsearch()
     await setup_neo4j()
+    await setup_postgres()
     print("Schema setup complete.")
 
 if __name__ == "__main__":
