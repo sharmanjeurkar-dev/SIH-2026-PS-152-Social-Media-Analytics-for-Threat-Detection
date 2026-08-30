@@ -4,7 +4,7 @@ from api_routes.auth import get_current_user
 
 router = APIRouter()
 # In a production app, initialize this in a dedicated services/ module and inject it
-es_client = AsyncElasticsearch("http://localhost:9200")
+es_client = AsyncElasticsearch("http://elasticsearch:9200")
 
 @router.get("/api/v1/analytics/sentiment")
 async def get_sentiment_analysis(

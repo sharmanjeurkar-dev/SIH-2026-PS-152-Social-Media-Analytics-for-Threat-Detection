@@ -1,66 +1,68 @@
-from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from sqlalchemy.future import select
-from sqlalchemy.ext.asyncio import AsyncSession
+import os
 import jwt
-from passlib.context import CryptContext
+from jwt import PyJWKClient
+from dotenv import load_dotenv
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-from database import get_db
-from models.user import User
+load_dotenv()
 
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
+SUPABASE_JWT_SECRET = os.getenv("SUPABASE_JWT_SECRET")
+
+if not SUPABASE_URL or not SUPABASE_ANON_KEY:
+    raise ValueError("Critical Security Error: SUPABASE URL/ANON_KEY variables are missing!")
+
+jwks_url = f"{SUPABASE_URL}/auth/v1/.well-known/jwks.json"
+jwks_client = PyJWKClient(jwks_url, headers={"apikey": SUPABASE_ANON_KEY})
+
+security = HTTPBearer()
 router = APIRouter()
 
-SECRET_KEY = "ntro_super_secret_key_v1"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Tells FastAPI where the frontend should send credentials to get a token
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-def create_access_token(data: dict, expires_delta: timedelta = None):
-    to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + (expires_delta if expires_delta else timedelta(minutes=15))
-    to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
-@router.post("/token")
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(User).where(User.username == form_data.username))
-    user = result.scalars().first()
-    
-    if not user or not verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": user.username, "clearance": user.clearance_level},
-        expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
-
-# NEW: The lock mechanism for your endpoints
-async def get_current_user(token: str = Depends(oauth2_scheme)):
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
+        detail="Could not validate Supabase credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    
     try:
-        # Decodes the JWT and verifies the signature
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        header = jwt.get_unverified_header(token)
+        alg = header.get("alg")
+        print(f"DEBUG: Token algorithm detected as: {alg}")
+        
+        if alg == "HS256":
+            if not SUPABASE_JWT_SECRET:
+                raise ValueError("HS256 token detected but SUPABASE_JWT_SECRET is missing from .env")
+            payload = jwt.decode(
+                token, 
+                SUPABASE_JWT_SECRET, 
+                algorithms=["HS256"], 
+                audience="authenticated"
+            )
+        else:
+            # Dynamically handle ES256, RS256, or any modern JWKS-backed algorithm
+            signing_key = jwks_client.get_signing_key_from_jwt(token)
+            payload = jwt.decode(
+                token, 
+                signing_key.key, 
+                algorithms=[alg], 
+                audience="authenticated"
+            )
+            
+        user_id: str = payload.get("sub")
+        if user_id is None:
             raise credentials_exception
-        return payload
-    except jwt.PyJWTError:
+            
+        return payload 
+        
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail="Supabase token has expired"
+        )
+    except Exception as e:
+        print(f"DEBUG: JWT Validation Error: {str(e)}")
         raise credentials_exception

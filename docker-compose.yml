@@ -3,6 +3,8 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
     networks:
       - ntro-network
 
@@ -14,6 +16,8 @@ services:
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     ports:
       - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
     networks:
       - ntro-network
 
@@ -24,19 +28,30 @@ services:
     ports:
       - "7474:7474" 
       - "7687:7687" 
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
     networks:
       - ntro-network
 
-  postgres:
-    image: postgres:15-alpine
-    environment:
-      - POSTGRES_USER=ntro_admin
-      - POSTGRES_PASSWORD=securepassword
-      - POSTGRES_DB=ntro_auth
+  api:
+    build: .
     ports:
-      - "5432:5432"
+      - "8000:8000"
+    environment:
+      - SUPABASE_JWT_SECRET=your-supabase-jwt-secret-here
     networks:
       - ntro-network
+    depends_on:
+      - redis
+      - elasticsearch
+      - neo4j
+
+volumes:
+  redis_data:
+  es_data:
+  neo4j_data:
+  neo4j_logs:
 
 networks:
   ntro-network:

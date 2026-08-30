@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NTRO Live Feed Test</title>
+    <style>
+        body { background-color: #1e1e1e; color: #00ff00; font-family: monospace; padding: 20px; }
+        li { margin-bottom: 10px; padding: 10px; border: 1px solid #333; list-style-type: none; }
+    </style>
+</head>
+<body>
+    <h2>Live Threat Feed connection: <span id="status" style="color: yellow;">Connecting...</span></h2>
+    <ul id="messages" style="padding: 0;"></ul>
+
+    <script>
+        // Connect to your FastAPI websocket route
+        var ws = new WebSocket("ws://127.0.0.1:8000/ws/live-feed");
+        
+        ws.onopen = function() {
+            document.getElementById('status').innerText = "ONLINE";
+            document.getElementById('status').style.color = "lime";
+        };
+
+        ws.onmessage = function(event) {
+            var messages = document.getElementById('messages');
+            var message = document.createElement('li');
+            
+            // Parse the JSON and format it for the screen
+            var data = JSON.parse(event.data);
+            message.innerHTML = `<strong>[${data.threat_level}]</strong> ${data.location} | Keyword: ${data.keyword_detected} <br><small>${data.timestamp}</small>`;
+            
+            // Add the new alert to the top of the list
+            messages.insertBefore(message, messages.firstChild);
+        };
+    </script>
+</body>
+</html>

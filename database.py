@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 # PostgreSQL connection string using asyncpg
-DATABASE_URL = "postgresql+asyncpg://ntro_admin:securepassword@localhost:5432/ntro_auth"
+DATABASE_URL = "postgresql+asyncpg://ntro_admin:securepassword@postgres:5432/ntro_auth"
 
 # Create the async engine
 engine = create_async_engine(DATABASE_URL, echo=True)

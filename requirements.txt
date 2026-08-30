@@ -1,6 +1,10 @@
 fastapi
 uvicorn
-elasticsearch[async]
-redis
+elasticsearch[async]==8.10.1
 neo4j
+redis
 pydantic
+PyJWT
+cryptography
+python-dotenv
+requests

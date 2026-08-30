@@ -5,7 +5,7 @@ from api_routes.auth import get_current_user
 
 router = APIRouter()
 # Initialize in a dedicated services/ module for production
-neo4j_driver = AsyncGraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "password"))
+neo4j_driver = AsyncGraphDatabase.driver("bolt://neo4j:7687", auth=("neo4j", "password"))
 
 @router.post("/api/v1/network/subgraph")
 async def get_threat_network(

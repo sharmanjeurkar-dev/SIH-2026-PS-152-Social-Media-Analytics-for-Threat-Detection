@@ -6,12 +6,12 @@ from api_routes import analytics, network, auth  # <-- Added auth here
 app = FastAPI(title="NTRO Analytics Command Center")
 
 # Include REST routing modules
-app.include_router(auth.router, tags=["Authentication"]) # <-- Added this line
+#app.include_router(auth.router, tags=["Authentication"]) # <-- Added this line
 app.include_router(analytics.router, tags=["Analytics"])
 app.include_router(network.router, tags=["Network Intelligence"])
 
 # Initialize Redis client for pub/sub streaming
-redis_client = redis.Redis(host='localhost', port=6379, db=0)
+redis_client = redis.Redis(host='redis', port=6379, db=0)
 active_connections = []
 
 @app.websocket("/ws/live-feed")
