@@ -1,47 +1,33 @@
-import scrapetube
-from youtube_transcript_api import YouTubeTranscriptApi
+import os
+import json
+from services import search_and_extract_by_keyword, evaluate_threat
 
-def test_youtube_scraper(query: str, max_results: int = 5):
+def test_full_fusion_engine():
     print("=" * 60)
-    print(f"Testing YouTube Scraping Engine for Query: '{query}'")
+    print("1. Extracting live context via YouTube scraper...")
     print("=" * 60)
+    
+    query = "breaking news security situation"
+    yt_context = search_and_extract_by_keyword(query, max_videos=1)
+    print(f"-> Pulled {len(yt_context)} characters of context.")
 
-    try:
-        # 1. Search YouTube without API quota
-        videos = scrapetube.get_search(query=query, limit=max_results, sort_by="upload_date")
-        
-        found_any = False
-        for idx, video in enumerate(videos, start=1):
-            found_any = True
-            vid_id = video.get('videoId')
-            
-            # Extract video title safely
-            title = "Unknown Title"
-            if 'title' in video and 'runs' in video['title']:
-                title = video['title']['runs'][0]['text']
+    print("\n" + "=" * 60)
+    print("2. Evaluating Threat via Llama 3.3 NIM Fusion Engine...")
+    print("=" * 60)
+    
+    simulated_sentiment = 0.85
+    simulated_graph_density = 0.78
 
-            print(f"\n[{idx}] Video Found: {title}")
-            print(f"    ID : {vid_id}")
-            print(f"    URL: https://www.youtube.com/watch?v={vid_id}")
+    assessment = evaluate_threat(
+        base_sentiment=simulated_sentiment,
+        graph_data=simulated_graph_density,
+        yt_context=yt_context
+    )
 
-            # 2. Extract Transcript
-            try:
-                transcript_data = YouTubeTranscriptApi().fetch(vid_id, languages=['en', 'hi'])
-                full_text = " ".join([chunk['text'] for chunk in transcript_data])
-                
-                print("    Status: SUCCESS (Transcript Available)")
-                print(f"    Transcript Snippet (First 150 chars): \"{full_text[:150]}...\"")
-                print(f"    Total Characters Extracted: {len(full_text)}")
-                
-            except Exception as e:
-                print(f"    Status: SKIPPED (Captions unavailable/disabled: {e})")
-
-        if not found_any:
-            print("\nNo videos returned for this query.")
-
-    except Exception as general_err:
-        print(f"\nScraping pipeline encountered an error: {general_err}")
+    print("\n" + "=" * 60)
+    print("FINAL THREAT ASSESSMENT OUTPUT:")
+    print("=" * 60)
+    print(json.dumps(assessment.model_dump(), indent=2))
 
 if __name__ == "__main__":
-    # Test with an active topic or known creator content
-    test_youtube_scraper(query="breaking updates live", max_results=3)
+    test_full_fusion_engine()
