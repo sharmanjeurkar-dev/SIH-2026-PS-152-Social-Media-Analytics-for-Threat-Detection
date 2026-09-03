@@ -1,70 +1,117 @@
 import logging
-from typing import Optional
+from typing import Any, Dict, List, Optional
 
 from neo4j import Driver
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
-from src.GraphDB.connection import Neo4jConnection
+from src.connection import Neo4jConnection
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
-
-class Platform(BaseModel):
-    conversation_id: Optional[str] = None
-    is_quote_tweet: bool = False
-    telegram_channel: Optional[str] = None
-    youtube_channel: Optional[str] = None
+# ==========================================
+# 1. Pydantic Schemas for Inbound Validation
+# ==========================================
 
 
 class AuthorSchema(BaseModel):
-    userId: str
-    handle_name: Optional[str] = "unknown_user"
-    account_create_at: Optional[str] = None
-    follower_count: int = Field(default=0, ge=0)
+    user_id: str
+    handle: Optional[str] = "unknown_user"
+    account_created_at: Optional[str] = None
+    followers_count: int = Field(default=0, ge=0)
     following_count: int = Field(default=0, ge=0)
 
 
-class PostInteractionschema(BaseModel):
-    interaction_type: Optional[str] = "ORIGINAL_POST"  # RETWEET, REPLY, MENTION, QUOTE
+class PlatformMetadataSchema(BaseModel):
+    telegram_channel: Optional[str] = None
+    youtube_channel: Optional[str] = None
+    conversation_id: Optional[str] = None
+    is_quote_tweet: bool = False
+
+
+class InteractionsSchema(BaseModel):
+    interaction_type: Optional[str] = "ORIGINAL_POST"
     target_user_id: Optional[str] = None
-    target_user_handle: Optional[str] = None
-    mentioned_user_handle: Optional[str] = None
+    target_handle: Optional[str] = None
+    mentioned_user_ids: List[str] = Field(default_factory=list)
     forwarded_from_user_id: Optional[str] = None
 
 
-class PostMetaDataSchema(BaseModel):
-    hashtags: list[str] = Field(default_factory=list)
-    shared_urls: list[str] = Field(default_factory=list)
-    ner_locations: list[str] = Field(default_factory=list)
-    ner_organizations: list[str] = Field(default_factory=list)
+class EntitiesSchema(BaseModel):
+    hashtags: List[str] = Field(default_factory=list)
+    shared_urls: List[str] = Field(default_factory=list)
+    ner_locations: List[str] = Field(default_factory=list)
+    ner_organizations: List[str] = Field(default_factory=list)
 
 
-class NLPLayeredMetrics(BaseModel):
-    threat_catagory: Optional[str] = "General"
-    threat_score: Optional[float] = 0.0
+class NLPEnrichmentSchema(BaseModel):
+    threat_category: Optional[str] = "GENERAL"
+    toxicity_score: float = Field(default=0.0, ge=0.0, le=1.0)
     sentiment_score: float = Field(default=0.0, ge=-1.0, le=1.0)
     sentiment_label: Optional[str] = "NEUTRAL"
-    news_approved_score: float = Field(
-        default=0.0, ge=0.0, le=1.0
-    )  # The credibility filter score
+    news_approved_score: float = Field(default=0.0, ge=0.0, le=1.0)
     intent: Optional[str] = "NEUTRAL"
     language: Optional[str] = "en"
 
 
-class SocialPostEvent(BaseModel):
+class EnrichedSocialEvent(BaseModel):
     post_id: str
     timestamp: str
-    platform: str  # e.g., "Telegram", "Reddit", "YouTube",'x'
+    platform: str
     author: AuthorSchema
-    platform_posted_on: Platform = Field(default_factory=Platform)
-    post_interactions: PostInteractionschema = Field(
-        default_factory=PostInteractionschema
+    platform_metadata: PlatformMetadataSchema = Field(
+        default_factory=PlatformMetadataSchema
     )
-    entities: PostMetaDataSchema = Field(default_factory=PostMetaDataSchema)
-    nlp_enrichment: NLPLayeredMetrics = Field(default_factory=NLPLayeredMetrics)
+    interactions: InteractionsSchema = Field(default_factory=InteractionsSchema)
+    entities: EntitiesSchema = Field(default_factory=EntitiesSchema)
+    nlp_enrichment: NLPEnrichmentSchema = Field(default_factory=NLPEnrichmentSchema)
 
+    @model_validator(mode="before")
+    @classmethod
+    def flatten_member2_payload(cls, values: Any) -> Any:
+        """
+        Intercepts the nested 'handoff' JSON from Member 2 and maps it into
+        the flat EnrichedSocialEvent structure required by Member 3 Cypher ingestion.
+        """
+        if isinstance(values, dict) and "handoff_to_member3" in values:
+            m3 = values["handoff_to_member3"]
+            m4 = values.get("handoff_to_member4", {})
+
+            # Map nested entities block
+            extracted = m3.get("extracted_entities", {})
+
+            return {
+                "post_id": m3.get("post_id"),
+                "timestamp": m3.get("timestamp"),
+                "platform": m3.get("platform"),
+                "author": {
+                    "user_id": m3.get("author_id"),
+                    "handle": m3.get("author_handle"),
+                },
+                "interactions": {
+                    "interaction_type": m3.get("interaction_type"),
+                    "target_user_id": m3.get("target_user_id"),
+                    "mentioned_user_ids": m3.get("mentions", []),
+                },
+                "entities": {
+                    "hashtags": m3.get("hashtags", []),
+                    "ner_locations": extracted.get("locations", []),
+                    "ner_organizations": extracted.get("organizations", []),
+                },
+                "nlp_enrichment": {
+                    "threat_category": m3.get("zero_shot_category"),
+                    "toxicity_score": m4.get("toxicity_severity_score", 0.0),
+                    "sentiment_score": m4.get("compound_sentiment_score", 0.0),
+                    "sentiment_label": m4.get("sentiment", "NEUTRAL"),
+                    "news_approved_score": m3.get("news_approved_score", 0.0),
+                },
+            }
+        # If it's already flat, just pass it through
+        return values
+
+
+# (Keep the rest of your CYPHER_BATCH_INGEST query and GraphIngestor class below exactly the same)
 
 CYPHER_BATCH_INGEST = """
 UNWIND $events AS event
@@ -177,7 +224,7 @@ class GraphInjestor:
         validated_events = []
         for raw in raw_events:
             try:
-                eventobj = SocialPostEvent(**raw)
+                eventobj = EnrichedSocialEvent(**raw)
                 validated_events.append(eventobj.model_dump())
 
             except Exception as e:

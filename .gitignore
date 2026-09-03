@@ -5,3 +5,6 @@ graph-network-engine/data/neo4j
 venv
 graph-network-engine/src/test
 */__init__.py
+*.csv
+data/
+.Ds_Store
