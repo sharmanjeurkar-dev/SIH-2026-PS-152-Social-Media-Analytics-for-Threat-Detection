@@ -38,18 +38,23 @@ class NetworkAnalyticsEngine:
         return node_community_map
 
     @staticmethod
-    def compute_centrality_metrics(G: nx.DiGraph) -> dict[str, dict[str, Any]]:
+    def compute_centrality_metrics(
+        G: nx.DiGraph, sample_k: int = 100
+    ) -> dict[str, dict[str, Any]]:
         """
-        Calculates Weighted PageRank and Betweenness Centrality to isolate
-        Super Spreaders and Boundary Spanners.
+        Calculates Weighted PageRank and Approx Betweenness Centrality.
+        Uses k-node sampling to prevent O(V*E) execution hangs on large graphs.
         """
         if len(G) == 0:
             return {}
 
-        # PageRank emphasizes directional influence weighted by toxicity/interactions
+        logging.info("Computing PageRank...")
         pagerank_scores = nx.pagerank(G, weight="weight", alpha=0.85)
-        # Betweenness centrality isolates bridge accounts connecting clusters
-        betweenness_scores = nx.betweenness_centrality(G, weight="weight")
+
+        logging.info(f"Computing Betweenness Centrality (sampled k={sample_k})...")
+        # Sample k random pivot nodes instead of computing all 86,000 shortest paths
+        k_val = min(sample_k, len(G))
+        betweenness_scores = nx.betweenness_centrality(G, k=k_val, weight="weight")
 
         metrics = {}
         for node in G.nodes():
