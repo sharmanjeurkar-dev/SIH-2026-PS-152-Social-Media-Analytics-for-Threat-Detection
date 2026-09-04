@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 graph-network-engine/src/.env
 *__pycache__
 graph-network-engine/data/logs
@@ -8,3 +9,19 @@ graph-network-engine/src/test
 *.csv
 data/
 .Ds_Store
+=======
+# Environment and Secrets
+.env
+
+# Large CSV & Data Files
+*.csv
+tweets.csv
+master_processed_threats.csv
+master_processed_threats.zip
+
+# Large Folders & Archives
+split_chunks_output/
+split_chunks_output.zip
+__pycache__/
+venv/
+>>>>>>> f5d817d (Clean history without large files)

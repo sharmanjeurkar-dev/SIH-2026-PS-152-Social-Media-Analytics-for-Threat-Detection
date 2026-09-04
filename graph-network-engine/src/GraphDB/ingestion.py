@@ -1,15 +1,25 @@
 import logging
+<<<<<<< HEAD
 from typing import Any, Dict, List, Optional
 
 from neo4j import Driver
 from pydantic import BaseModel, Field, model_validator
 
 from src.connection import Neo4jConnection
+=======
+from typing import Optional
+
+from neo4j import Driver
+from pydantic import BaseModel, Field
+
+from src.GraphDB.connection import Neo4jConnection
+>>>>>>> f5d817d (Clean history without large files)
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
+<<<<<<< HEAD
 # ==========================================
 # 1. Pydantic Schemas for Inbound Validation
 # ==========================================
@@ -51,10 +61,52 @@ class NLPEnrichmentSchema(BaseModel):
     sentiment_score: float = Field(default=0.0, ge=-1.0, le=1.0)
     sentiment_label: Optional[str] = "NEUTRAL"
     news_approved_score: float = Field(default=0.0, ge=0.0, le=1.0)
+=======
+
+class Platform(BaseModel):
+    conversation_id: Optional[str] = None
+    is_quote_tweet: bool = False
+    telegram_channel: Optional[str] = None
+    youtube_channel: Optional[str] = None
+
+
+class AuthorSchema(BaseModel):
+    userId: str
+    handle_name: Optional[str] = "unknown_user"
+    account_create_at: Optional[str] = None
+    follower_count: int = Field(default=0, ge=0)
+    following_count: int = Field(default=0, ge=0)
+
+
+class PostInteractionschema(BaseModel):
+    interaction_type: Optional[str] = "ORIGINAL_POST"  # RETWEET, REPLY, MENTION, QUOTE
+    target_user_id: Optional[str] = None
+    target_user_handle: Optional[str] = None
+    mentioned_user_handle: Optional[str] = None
+    forwarded_from_user_id: Optional[str] = None
+
+
+class PostMetaDataSchema(BaseModel):
+    hashtags: list[str] = Field(default_factory=list)
+    shared_urls: list[str] = Field(default_factory=list)
+    ner_locations: list[str] = Field(default_factory=list)
+    ner_organizations: list[str] = Field(default_factory=list)
+
+
+class NLPLayeredMetrics(BaseModel):
+    threat_catagory: Optional[str] = "General"
+    threat_score: Optional[float] = 0.0
+    sentiment_score: float = Field(default=0.0, ge=-1.0, le=1.0)
+    sentiment_label: Optional[str] = "NEUTRAL"
+    news_approved_score: float = Field(
+        default=0.0, ge=0.0, le=1.0
+    )  # The credibility filter score
+>>>>>>> f5d817d (Clean history without large files)
     intent: Optional[str] = "NEUTRAL"
     language: Optional[str] = "en"
 
 
+<<<<<<< HEAD
 class EnrichedSocialEvent(BaseModel):
     post_id: str
     timestamp: str
@@ -112,6 +164,20 @@ class EnrichedSocialEvent(BaseModel):
 
 
 # (Keep the rest of your CYPHER_BATCH_INGEST query and GraphIngestor class below exactly the same)
+=======
+class SocialPostEvent(BaseModel):
+    post_id: str
+    timestamp: str
+    platform: str  # e.g., "Telegram", "Reddit", "YouTube",'x'
+    author: AuthorSchema
+    platform_posted_on: Platform = Field(default_factory=Platform)
+    post_interactions: PostInteractionschema = Field(
+        default_factory=PostInteractionschema
+    )
+    entities: PostMetaDataSchema = Field(default_factory=PostMetaDataSchema)
+    nlp_enrichment: NLPLayeredMetrics = Field(default_factory=NLPLayeredMetrics)
+
+>>>>>>> f5d817d (Clean history without large files)
 
 CYPHER_BATCH_INGEST = """
 UNWIND $events AS event
@@ -224,7 +290,11 @@ class GraphInjestor:
         validated_events = []
         for raw in raw_events:
             try:
+<<<<<<< HEAD
                 eventobj = EnrichedSocialEvent(**raw)
+=======
+                eventobj = SocialPostEvent(**raw)
+>>>>>>> f5d817d (Clean history without large files)
                 validated_events.append(eventobj.model_dump())
 
             except Exception as e:
