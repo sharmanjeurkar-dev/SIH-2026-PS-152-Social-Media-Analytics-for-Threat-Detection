@@ -1,3 +1,4 @@
+import itertools
 import logging
 <<<<<<< HEAD
 from typing import Any, Dict, List, Optional
@@ -5,6 +6,7 @@ from typing import Any, Dict, List, Optional
 from neo4j import Driver
 from pydantic import BaseModel, Field, model_validator
 
+<<<<<<< HEAD
 from src.connection import Neo4jConnection
 =======
 from typing import Optional
@@ -14,6 +16,9 @@ from pydantic import BaseModel, Field
 
 from src.GraphDB.connection import Neo4jConnection
 >>>>>>> f5d817d (Clean history without large files)
+=======
+from src.GraphDB.connection import Neo4jConnection
+>>>>>>> aff0160 (Latest no error/issue commit)
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
@@ -50,9 +55,17 @@ class InteractionsSchema(BaseModel):
 
 class EntitiesSchema(BaseModel):
     hashtags: List[str] = Field(default_factory=list)
+    hashtag_pairs: List[List[str]] = Field(default_factory=list)
     shared_urls: List[str] = Field(default_factory=list)
     ner_locations: List[str] = Field(default_factory=list)
     ner_organizations: List[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def generate_hashtag_pairs(self) -> "EntitiesSchema":
+        if self.hashtags and not self.hashtag_pairs:
+            cleaned = sorted(list({h.lower().lstrip("#") for h in self.hashtags if h}))
+            self.hashtag_pairs = [list(p) for p in itertools.combinations(cleaned, 2)]
+        return self
 
 
 class NLPEnrichmentSchema(BaseModel):
@@ -255,9 +268,32 @@ FOREACH (_ IN CASE WHEN event.interactions.forwarded_from_user_id IS NOT NULL TH
 
 // H. Connect Hashtags & URLs
 FOREACH (ht IN event.entities.hashtags |
-    MERGE (h:Hashtag {tag: ht})
+    MERGE (h:Hashtag {tag: toLower(ht)})
+    ON CREATE SET 
+        h.frequency = 1,
+        h.first_seen = event.timestamp,
+        h.last_seen = event.timestamp,
+        h.avg_toxicity = coalesce(event.nlp_enrichment.toxicity_score, 0.0)
+    ON MATCH SET 
+        h.frequency = coalesce(h.frequency, 0) + 1,
+        h.last_seen = event.timestamp,
+        h.avg_toxicity = (coalesce(h.avg_toxicity, 0.0) * 0.9) + (coalesce(event.nlp_enrichment.toxicity_score, 0.0) * 0.1)
     MERGE (post)-[:TAGGED_WITH]->(h)
     MERGE (author)-[:USED_HASHTAG {last_used: event.timestamp}]->(h)
+)
+
+// H2. Connect Co-occurring Hashtags (Semantic Topic Network)
+FOREACH (pair IN event.entities.hashtag_pairs |
+    MERGE (h1:Hashtag {tag: pair[0]})
+    MERGE (h2:Hashtag {tag: pair[1]})
+    MERGE (h1)-[co:CO_OCCURS_WITH]-(h2)
+    ON CREATE SET 
+        co.weight = 1,
+        co.first_seen = event.timestamp,
+        co.last_seen = event.timestamp
+    ON MATCH SET 
+        co.weight = coalesce(co.weight, 1) + 1,
+        co.last_seen = event.timestamp
 )
 FOREACH (link IN event.entities.shared_urls |
     MERGE (u:URL {link: link})

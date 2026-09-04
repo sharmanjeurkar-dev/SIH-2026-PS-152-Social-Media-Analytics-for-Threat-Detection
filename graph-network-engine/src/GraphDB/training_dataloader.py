@@ -1,5 +1,6 @@
 import ast
 import csv
+import itertools
 import logging
 import re
 from typing import Any, Dict, List, Optional
@@ -12,12 +13,55 @@ logging.basicConfig(
 
 # Threat and hostility keywords for NLP scoring fallback
 THREAT_KEYWORDS = {
-    "kill", "killing", "dead", "death", "attack", "attacker", "attacking", "destroy",
-    "violence", "violent", "blood", "bloody", "riot", "riots", "rioting", "burn", "burning",
-    "terror", "terrorist", "terrorism", "weapon", "weapons", "bomb", "blast", "hang",
-    "gundas", "gunda", "goons", "goon", "enemy", "enemies", "threat", "threats", "threaten",
-    "hate", "hateful", "hating", "shame", "shameful", "traitor", "traitors", "protest",
-    "chakkajam", "extremist", "extremists", "clash", "clashes", "conspiracy", "anti-national"
+    "kill",
+    "killing",
+    "dead",
+    "death",
+    "attack",
+    "attacker",
+    "attacking",
+    "destroy",
+    "violence",
+    "violent",
+    "blood",
+    "bloody",
+    "riot",
+    "riots",
+    "rioting",
+    "burn",
+    "burning",
+    "terror",
+    "terrorist",
+    "terrorism",
+    "weapon",
+    "weapons",
+    "bomb",
+    "blast",
+    "hang",
+    "gundas",
+    "gunda",
+    "goons",
+    "goon",
+    "enemy",
+    "enemies",
+    "threat",
+    "threats",
+    "threaten",
+    "hate",
+    "hateful",
+    "hating",
+    "shame",
+    "shameful",
+    "traitor",
+    "traitors",
+    "protest",
+    "chakkajam",
+    "extremist",
+    "extremists",
+    "clash",
+    "clashes",
+    "conspiracy",
+    "anti-national",
 }
 
 # ==========================================================
@@ -70,11 +114,34 @@ FOREACH (target_handle IN row.mentions |
     ON MATCH SET r.weight = r.weight + 1.0 + (toFloat(row.toxicity_score) * 2.0), r.last_seen = row.timestamp
 )
 
-// 5. Connect Hashtags
+// 5. Connect Hashtags with temporal & frequency tracking
 FOREACH (ht IN row.hashtags |
     MERGE (h:Hashtag {tag: toLower(ht)})
+    ON CREATE SET 
+        h.frequency = 1,
+        h.first_seen = row.timestamp,
+        h.last_seen = row.timestamp,
+        h.avg_toxicity = toFloat(row.toxicity_score)
+    ON MATCH SET 
+        h.frequency = coalesce(h.frequency, 0) + 1,
+        h.last_seen = row.timestamp,
+        h.avg_toxicity = (coalesce(h.avg_toxicity, 0.0) * 0.9) + (toFloat(row.toxicity_score) * 0.1)
     MERGE (p)-[:TAGGED_WITH]->(h)
     MERGE (author)-[:USED_HASHTAG]->(h)
+)
+
+// 6. Connect Co-occurring Hashtags (Semantic Topic Network)
+FOREACH (pair IN row.hashtag_pairs |
+    MERGE (h1:Hashtag {tag: pair[0]})
+    MERGE (h2:Hashtag {tag: pair[1]})
+    MERGE (h1)-[co:CO_OCCURS_WITH]-(h2)
+    ON CREATE SET 
+        co.weight = 1,
+        co.first_seen = row.timestamp,
+        co.last_seen = row.timestamp
+    ON MATCH SET 
+        co.weight = coalesce(co.weight, 1) + 1,
+        co.last_seen = row.timestamp
 )
 """
 
@@ -146,11 +213,17 @@ class DirectDatasetLoader:
                         pass
                 else:
                     try:
-                        followers = int(float(row.get("followersCount") or row.get("followers") or 0))
+                        followers = int(
+                            float(
+                                row.get("followersCount") or row.get("followers") or 0
+                            )
+                        )
                     except (ValueError, TypeError):
                         followers = 0
                     try:
-                        following = int(float(row.get("friendsCount") or row.get("following") or 0))
+                        following = int(
+                            float(row.get("friendsCount") or row.get("following") or 0)
+                        )
                     except (ValueError, TypeError):
                         following = 0
 
@@ -221,7 +294,9 @@ class DirectDatasetLoader:
                         pass
 
                 if not author_handle:
-                    raw_uid = str(row.get("userId") or row.get("user_id") or "unknown").strip()
+                    raw_uid = str(
+                        row.get("userId") or row.get("user_id") or "unknown"
+                    ).strip()
                     if raw_uid.endswith(".0"):
                         raw_uid = raw_uid[:-2]
                     author_handle = raw_uid
@@ -247,17 +322,27 @@ class DirectDatasetLoader:
                     {m for m in mentions if m.lower() != author_handle.lower() and m}
                 )
 
-                hashtags = list(set(self.hashtag_regex.findall(text)))
+                raw_tags = self.hashtag_regex.findall(text)
+                clean_hashtags = sorted(
+                    list({ht.lower().lstrip("#") for ht in raw_tags if ht})
+                )
+                hashtag_pairs = [
+                    list(p) for p in itertools.combinations(clean_hashtags, 2)
+                ]
 
                 # Compute or extract NLP metrics
                 toxicity, sentiment, category = self._compute_nlp_metrics(text, row)
 
                 try:
-                    retweet_cnt = int(float(row.get("retweetCount") or row.get("retweet_count") or 0))
+                    retweet_cnt = int(
+                        float(row.get("retweetCount") or row.get("retweet_count") or 0)
+                    )
                 except (ValueError, TypeError):
                     retweet_cnt = 0
                 try:
-                    reply_cnt = int(float(row.get("replyCount") or row.get("reply_count") or 0))
+                    reply_cnt = int(
+                        float(row.get("replyCount") or row.get("reply_count") or 0)
+                    )
                 except (ValueError, TypeError):
                     reply_cnt = 0
 
@@ -270,7 +355,8 @@ class DirectDatasetLoader:
                         "mentions": cleaned_mentions,
                         "retweet_count": retweet_cnt,
                         "reply_count": reply_cnt,
-                        "hashtags": hashtags,
+                        "hashtags": clean_hashtags,
+                        "hashtag_pairs": hashtag_pairs,
                         "toxicity_score": toxicity,
                         "sentiment_score": sentiment,
                         "threat_category": category,

@@ -72,3 +72,58 @@ class NetworkAnalyticsEngine:
             }
 
         return metrics
+
+    @staticmethod
+    def generate_network_payload(
+        G: nx.Graph | nx.DiGraph,
+        bot_prob: float = 0.0,
+        malicious_prob: float = 0.0,
+        ordinary_prob: float = 1.0,
+        cluster_count: int | None = None,
+        pagerank_max: float | None = None,
+        graph_density: float | None = None,
+    ) -> dict[str, Any]:
+        """
+        Generates the standard feedback network_payload matching Member 3 contract:
+        - graph_density: network density ratio
+        - super_spreader_pagerank_max: maximum PageRank score among super spreaders
+        - bot_probability: probability or ratio of bot amplifiers
+        - malicious_user_probability: probability or ratio of malicious actors
+        - ordinary_user_probability: probability or ratio of organic users
+        - louvain_cluster_count: total detected Louvain community clusters
+        """
+        if graph_density is None:
+            graph_density = round(float(nx.density(G)), 6) if len(G) > 1 else 0.0
+
+        if pagerank_max is None:
+            if len(G) > 0:
+                try:
+                    pr_scores = nx.pagerank(G, weight="weight", alpha=0.85)
+                    pagerank_max = round(float(max(pr_scores.values())), 6)
+                except Exception:
+                    pagerank_max = 0.0
+            else:
+                pagerank_max = 0.0
+
+        if cluster_count is None:
+            if len(G) > 0:
+                try:
+                    undirected_G = G.to_undirected()
+                    communities = community.louvain_communities(
+                        undirected_G, weight="weight", resolution=1.0
+                    )
+                    cluster_count = len(communities)
+                except Exception:
+                    cluster_count = 1
+            else:
+                cluster_count = 0
+
+        network_payload = {
+            "graph_density": graph_density,
+            "super_spreader_pagerank_max": pagerank_max,
+            "bot_probability": round(bot_prob, 4),
+            "malicious_user_probability": round(malicious_prob, 4),
+            "ordinary_user_probability": round(ordinary_prob, 4),
+            "louvain_cluster_count": cluster_count,
+        }
+        return network_payload
