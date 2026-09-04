@@ -46,8 +46,8 @@ class SubGraphExtraction:
     MATCH (u:User)-[:POSTED]->(p:Post)
     RETURN 
         u.user_id AS user_id,
-        avg(p.toxicity_score) AS avg_toxicity,
-        avg(p.sentiment_score) AS avg_sentiment,
+        avg(coalesce(p.toxicity_score, 0.0)) AS avg_toxicity,
+        avg(coalesce(p.sentiment_score, 0.0)) AS avg_sentiment,
         count(p) AS post_count
     """
 
@@ -58,24 +58,27 @@ class SubGraphExtraction:
         node_metadata: dict[str, dict[str, Any]] = {}
 
         with self.driver.session() as session:
-            nlp_records = session.run(self.EXTRACT_USER_NLP_QUERY)
-            for record in nlp_records:
-                uid = record["user_id"]
-                node_metadata[uid] = {
-                    "avg_toxicity": float(record["avg_toxicity"] or 0.0),
-                    "avg_sentiment": float(record["avg_sentiment"] or 0.0),
-                    "post_count": int(record["post_count"] or 0),
-                }
+            try:
+                nlp_records = session.run(self.EXTRACT_USER_NLP_QUERY)
+                for record in nlp_records:
+                    uid = record["user_id"]
+                    node_metadata[uid] = {
+                        "avg_toxicity": float(record["avg_toxicity"] or 0.0),
+                        "avg_sentiment": float(record["avg_sentiment"] or 0.0),
+                        "post_count": int(record["post_count"] or 0),
+                    }
+            except Exception as e:
+                logging.warning(f"Could not load NLP records: {e}")
 
             interaction_records = session.run(self.EXTRACT_GRAPH_QUERY)
             edge_count = 0
             for row in interaction_records:
+                edge_count += 1
                 s_id = row["source_id"]
                 t_id = row["target_id"]
                 weight = float(row["weight"])
                 itype = row["interaction_type"]
 
-                # Ensure source metadata
                 # Ensure source metadata
                 if s_id not in node_metadata:
                     node_metadata[s_id] = {
@@ -85,9 +88,9 @@ class SubGraphExtraction:
                     }
                 node_metadata[s_id].update(
                     {
-                        "handle": row["source_handle"],
-                        "followers_count": row["source_followers"],
-                        "following_count": row["source_following"],
+                        "handle": row["source_handle"] or s_id,
+                        "followers_count": int(row["source_followers"] or 0),
+                        "following_count": int(row["source_following"] or 0),
                     }
                 )
 
@@ -100,13 +103,13 @@ class SubGraphExtraction:
                     }
                 node_metadata[t_id].update(
                     {
-                        "handle": row["target_handle"],
-                        "followers_count": row["target_followers"],
-                        "following_count": row["target_following"],
+                        "handle": row["target_handle"] or t_id,
+                        "followers_count": int(row["target_followers"] or 0),
+                        "following_count": int(row["target_following"] or 0),
                     }
                 )
 
-                # Add nodes with basic features
+                # Add nodes with metadata attributes
                 G.add_node(s_id, **node_metadata[s_id])
                 G.add_node(t_id, **node_metadata[t_id])
 
@@ -115,7 +118,6 @@ class SubGraphExtraction:
                     G[s_id][t_id]["weight"] += weight
                 else:
                     G.add_edge(s_id, t_id, weight=weight, interaction_type=itype)
-        edge_count += 1
 
         logging.info(
             f"Successfully extracted subgraph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges from {edge_count} raw relations."

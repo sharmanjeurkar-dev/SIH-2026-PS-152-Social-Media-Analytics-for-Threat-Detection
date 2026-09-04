@@ -42,17 +42,15 @@ class NetworkAnalyticsEngine:
         G: nx.DiGraph, sample_k: int = 100
     ) -> dict[str, dict[str, Any]]:
         """
-        Calculates Weighted PageRank and Approx Betweenness Centrality.
-        Uses k-node sampling to prevent O(V*E) execution hangs on large graphs.
+        Computes PageRank and sampled Betweenness Centrality (k=100)
+        to prevent O(V*E) execution hangs on large graphs.
         """
         if len(G) == 0:
             return {}
 
-        logging.info("Computing PageRank...")
         pagerank_scores = nx.pagerank(G, weight="weight", alpha=0.85)
 
-        logging.info(f"Computing Betweenness Centrality (sampled k={sample_k})...")
-        # Sample k random pivot nodes instead of computing all 86,000 shortest paths
+        # Sample k pivot nodes rather than checking all 86,000 shortest paths
         k_val = min(sample_k, len(G))
         betweenness_scores = nx.betweenness_centrality(G, k=k_val, weight="weight")
 
@@ -61,7 +59,6 @@ class NetworkAnalyticsEngine:
             pr = pagerank_scores.get(node, 0.0)
             bc = betweenness_scores.get(node, 0.0)
 
-            # Deterministic structural threshold classification
             role = "ORGANIC_USER"
             if pr > 0.08:
                 role = "SUPER_SPREADER"
@@ -74,5 +71,4 @@ class NetworkAnalyticsEngine:
                 "role_label": role,
             }
 
-        logging.info("Centrality metrics and topological roles computed successfully.")
         return metrics
