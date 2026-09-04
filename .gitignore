@@ -1,0 +1,14 @@
+# Environment and Secrets
+.env
+
+# Large CSV & Data Files
+*.csv
+tweets.csv
+master_processed_threats.csv
+master_processed_threats.zip
+
+# Large Folders & Archives
+split_chunks_output/
+split_chunks_output.zip
+__pycache__/
+venv/

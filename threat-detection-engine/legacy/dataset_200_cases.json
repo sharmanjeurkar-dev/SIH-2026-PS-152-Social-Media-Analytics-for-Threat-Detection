@@ -1,0 +1,2802 @@
+[
+    {
+        "case_id": "CASE_001",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.068,
+            "violent_intent_probability": 0.233,
+            "radicalization_index": 0.082,
+            "toxicity_severity_score": 0.033,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_002",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.875,
+            "violent_intent_probability": 0.82,
+            "radicalization_index": 0.812,
+            "toxicity_severity_score": 0.813,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_003",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.041,
+            "violent_intent_probability": 0.048,
+            "radicalization_index": 0.015,
+            "toxicity_severity_score": 0.116,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_004",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.45,
+            "violent_intent_probability": 0.515,
+            "radicalization_index": 0.633,
+            "toxicity_severity_score": 0.184,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_005",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.088,
+            "violent_intent_probability": 0.017,
+            "radicalization_index": 0.008,
+            "toxicity_severity_score": 0.137,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_006",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.205,
+            "violent_intent_probability": 0.186,
+            "radicalization_index": 0.187,
+            "toxicity_severity_score": 0.3,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_007",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.013,
+            "violent_intent_probability": 0.048,
+            "radicalization_index": 0.009,
+            "toxicity_severity_score": 0.1,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_008",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.242,
+            "violent_intent_probability": 0.123,
+            "radicalization_index": 0.144,
+            "toxicity_severity_score": 0.105,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_009",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.075,
+            "violent_intent_probability": 0.223,
+            "radicalization_index": 0.067,
+            "toxicity_severity_score": 0.153,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_010",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.529,
+            "violent_intent_probability": 0.403,
+            "radicalization_index": 0.558,
+            "toxicity_severity_score": 0.134,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_011",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.867,
+            "violent_intent_probability": 0.912,
+            "radicalization_index": 0.771,
+            "toxicity_severity_score": 0.68,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_012",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.145,
+            "violent_intent_probability": 0.209,
+            "radicalization_index": 0.058,
+            "toxicity_severity_score": 0.214,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_013",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.549,
+            "violent_intent_probability": 0.489,
+            "radicalization_index": 0.513,
+            "toxicity_severity_score": 0.359,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_014",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.088,
+            "violent_intent_probability": 0.008,
+            "radicalization_index": 0.003,
+            "toxicity_severity_score": 0.084,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_015",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.137,
+            "violent_intent_probability": 0.103,
+            "radicalization_index": 0.064,
+            "toxicity_severity_score": 0.116,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_016",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.52,
+            "violent_intent_probability": 0.472,
+            "radicalization_index": 0.613,
+            "toxicity_severity_score": 0.308,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_017",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.781,
+            "violent_intent_probability": 0.851,
+            "radicalization_index": 0.754,
+            "toxicity_severity_score": 0.351,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_018",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.268,
+            "violent_intent_probability": 0.133,
+            "radicalization_index": 0.149,
+            "toxicity_severity_score": 0.255,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_019",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.155,
+            "violent_intent_probability": 0.11,
+            "radicalization_index": 0.167,
+            "toxicity_severity_score": 0.234,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_020",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.076,
+            "violent_intent_probability": 0.009,
+            "radicalization_index": 0.005,
+            "toxicity_severity_score": 0.171,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_021",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.519,
+            "violent_intent_probability": 0.382,
+            "radicalization_index": 0.47,
+            "toxicity_severity_score": 0.157,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_022",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.862,
+            "violent_intent_probability": 0.83,
+            "radicalization_index": 0.863,
+            "toxicity_severity_score": 0.841,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_023",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.032,
+            "violent_intent_probability": 0.025,
+            "radicalization_index": 0.004,
+            "toxicity_severity_score": 0.031,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_024",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.205,
+            "violent_intent_probability": 0.143,
+            "radicalization_index": 0.106,
+            "toxicity_severity_score": 0.114,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_025",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.138,
+            "violent_intent_probability": 0.111,
+            "radicalization_index": 0.07,
+            "toxicity_severity_score": 0.101,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_026",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.027,
+            "violent_intent_probability": 0.019,
+            "radicalization_index": 0.005,
+            "toxicity_severity_score": 0.028,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_027",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.547,
+            "violent_intent_probability": 0.401,
+            "radicalization_index": 0.492,
+            "toxicity_severity_score": 0.077,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_028",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.491,
+            "violent_intent_probability": 0.542,
+            "radicalization_index": 0.45,
+            "toxicity_severity_score": 0.171,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_029",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.058,
+            "violent_intent_probability": 0.112,
+            "radicalization_index": 0.051,
+            "toxicity_severity_score": 0.082,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_030",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.098,
+            "violent_intent_probability": 0.022,
+            "radicalization_index": 0.02,
+            "toxicity_severity_score": 0.004,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_031",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.783,
+            "violent_intent_probability": 0.805,
+            "radicalization_index": 0.752,
+            "toxicity_severity_score": 0.511,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_032",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.778,
+            "violent_intent_probability": 0.939,
+            "radicalization_index": 0.84,
+            "toxicity_severity_score": 0.661,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_033",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.215,
+            "violent_intent_probability": 0.119,
+            "radicalization_index": 0.107,
+            "toxicity_severity_score": 0.01,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_034",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.42,
+            "violent_intent_probability": 0.341,
+            "radicalization_index": 0.483,
+            "toxicity_severity_score": 0.387,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_035",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.156,
+            "violent_intent_probability": 0.198,
+            "radicalization_index": 0.187,
+            "toxicity_severity_score": 0.094,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_036",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.211,
+            "violent_intent_probability": 0.172,
+            "radicalization_index": 0.113,
+            "toxicity_severity_score": 0.224,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_037",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.366,
+            "violent_intent_probability": 0.409,
+            "radicalization_index": 0.633,
+            "toxicity_severity_score": 0.115,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_038",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.894,
+            "violent_intent_probability": 0.958,
+            "radicalization_index": 0.753,
+            "toxicity_severity_score": 0.104,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_039",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.044,
+            "violent_intent_probability": 0.006,
+            "radicalization_index": 0.003,
+            "toxicity_severity_score": 0.093,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_040",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.161,
+            "violent_intent_probability": 0.107,
+            "radicalization_index": 0.175,
+            "toxicity_severity_score": 0.077,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_041",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.222,
+            "violent_intent_probability": 0.156,
+            "radicalization_index": 0.167,
+            "toxicity_severity_score": 0.182,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_042",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.112,
+            "violent_intent_probability": 0.157,
+            "radicalization_index": 0.079,
+            "toxicity_severity_score": 0.2,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_043",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.812,
+            "violent_intent_probability": 0.821,
+            "radicalization_index": 0.859,
+            "toxicity_severity_score": 0.753,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_044",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.1,
+            "violent_intent_probability": 0.044,
+            "radicalization_index": 0.006,
+            "toxicity_severity_score": 0.041,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_045",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.457,
+            "violent_intent_probability": 0.379,
+            "radicalization_index": 0.572,
+            "toxicity_severity_score": 0.349,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_046",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.213,
+            "violent_intent_probability": 0.189,
+            "radicalization_index": 0.133,
+            "toxicity_severity_score": 0.065,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_047",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.072,
+            "violent_intent_probability": 0.02,
+            "radicalization_index": 0.006,
+            "toxicity_severity_score": 0.139,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_048",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.402,
+            "violent_intent_probability": 0.43,
+            "radicalization_index": 0.623,
+            "toxicity_severity_score": 0.446,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_049",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.078,
+            "violent_intent_probability": 0.205,
+            "radicalization_index": 0.068,
+            "toxicity_severity_score": 0.051,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_050",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.099,
+            "violent_intent_probability": 0.207,
+            "radicalization_index": 0.069,
+            "toxicity_severity_score": 0.103,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_051",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.028,
+            "violent_intent_probability": 0.023,
+            "radicalization_index": 0.003,
+            "toxicity_severity_score": 0.067,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_052",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.055,
+            "violent_intent_probability": 0.238,
+            "radicalization_index": 0.082,
+            "toxicity_severity_score": 0.116,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_053",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.063,
+            "violent_intent_probability": 0.108,
+            "radicalization_index": 0.075,
+            "toxicity_severity_score": 0.112,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_054",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.209,
+            "violent_intent_probability": 0.183,
+            "radicalization_index": 0.152,
+            "toxicity_severity_score": 0.061,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_055",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.035,
+            "violent_intent_probability": 0.0,
+            "radicalization_index": 0.001,
+            "toxicity_severity_score": 0.127,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_056",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.845,
+            "violent_intent_probability": 0.916,
+            "radicalization_index": 0.731,
+            "toxicity_severity_score": 0.243,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_057",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.271,
+            "violent_intent_probability": 0.121,
+            "radicalization_index": 0.176,
+            "toxicity_severity_score": 0.227,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_058",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.254,
+            "violent_intent_probability": 0.141,
+            "radicalization_index": 0.159,
+            "toxicity_severity_score": 0.255,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_059",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.226,
+            "violent_intent_probability": 0.114,
+            "radicalization_index": 0.11,
+            "toxicity_severity_score": 0.193,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_060",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.463,
+            "violent_intent_probability": 0.458,
+            "radicalization_index": 0.51,
+            "toxicity_severity_score": 0.132,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_061",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.881,
+            "violent_intent_probability": 0.815,
+            "radicalization_index": 0.788,
+            "toxicity_severity_score": 0.937,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_062",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.073,
+            "violent_intent_probability": 0.21,
+            "radicalization_index": 0.063,
+            "toxicity_severity_score": 0.16,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_063",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.823,
+            "violent_intent_probability": 0.857,
+            "radicalization_index": 0.869,
+            "toxicity_severity_score": 0.298,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_064",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.219,
+            "violent_intent_probability": 0.153,
+            "radicalization_index": 0.155,
+            "toxicity_severity_score": 0.303,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_065",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.758,
+            "violent_intent_probability": 0.804,
+            "radicalization_index": 0.816,
+            "toxicity_severity_score": 0.373,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_066",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.27,
+            "violent_intent_probability": 0.107,
+            "radicalization_index": 0.179,
+            "toxicity_severity_score": 0.097,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_067",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.062,
+            "violent_intent_probability": 0.014,
+            "radicalization_index": 0.009,
+            "toxicity_severity_score": 0.02,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_068",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.196,
+            "violent_intent_probability": 0.124,
+            "radicalization_index": 0.127,
+            "toxicity_severity_score": 0.1,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_069",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.056,
+            "violent_intent_probability": 0.042,
+            "radicalization_index": 0.013,
+            "toxicity_severity_score": 0.085,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_070",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.05,
+            "violent_intent_probability": 0.015,
+            "radicalization_index": 0.01,
+            "toxicity_severity_score": 0.12,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_071",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.028,
+            "violent_intent_probability": 0.043,
+            "radicalization_index": 0.012,
+            "toxicity_severity_score": 0.061,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_072",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.919,
+            "violent_intent_probability": 0.818,
+            "radicalization_index": 0.833,
+            "toxicity_severity_score": 0.632,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_073",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.396,
+            "violent_intent_probability": 0.412,
+            "radicalization_index": 0.526,
+            "toxicity_severity_score": 0.387,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_074",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.92,
+            "violent_intent_probability": 0.948,
+            "radicalization_index": 0.851,
+            "toxicity_severity_score": 0.451,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_075",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.222,
+            "violent_intent_probability": 0.149,
+            "radicalization_index": 0.122,
+            "toxicity_severity_score": 0.3,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_076",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.171,
+            "violent_intent_probability": 0.129,
+            "radicalization_index": 0.189,
+            "toxicity_severity_score": 0.247,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_077",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.829,
+            "violent_intent_probability": 0.954,
+            "radicalization_index": 0.782,
+            "toxicity_severity_score": 0.198,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_078",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.787,
+            "violent_intent_probability": 0.955,
+            "radicalization_index": 0.807,
+            "toxicity_severity_score": 0.867,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_079",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.236,
+            "violent_intent_probability": 0.109,
+            "radicalization_index": 0.105,
+            "toxicity_severity_score": 0.324,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_080",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.14,
+            "violent_intent_probability": 0.115,
+            "radicalization_index": 0.066,
+            "toxicity_severity_score": 0.017,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_081",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.892,
+            "violent_intent_probability": 0.881,
+            "radicalization_index": 0.871,
+            "toxicity_severity_score": 0.365,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_082",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.14,
+            "violent_intent_probability": 0.201,
+            "radicalization_index": 0.058,
+            "toxicity_severity_score": 0.11,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_083",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.55,
+            "violent_intent_probability": 0.365,
+            "radicalization_index": 0.567,
+            "toxicity_severity_score": 0.045,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_084",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.473,
+            "violent_intent_probability": 0.417,
+            "radicalization_index": 0.63,
+            "toxicity_severity_score": 0.259,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_085",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.137,
+            "violent_intent_probability": 0.124,
+            "radicalization_index": 0.056,
+            "toxicity_severity_score": 0.135,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_086",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.106,
+            "violent_intent_probability": 0.15,
+            "radicalization_index": 0.087,
+            "toxicity_severity_score": 0.194,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_087",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.155,
+            "violent_intent_probability": 0.125,
+            "radicalization_index": 0.175,
+            "toxicity_severity_score": 0.003,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_088",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.473,
+            "violent_intent_probability": 0.477,
+            "radicalization_index": 0.57,
+            "toxicity_severity_score": 0.024,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_089",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.169,
+            "violent_intent_probability": 0.186,
+            "radicalization_index": 0.117,
+            "toxicity_severity_score": 0.049,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_090",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.053,
+            "violent_intent_probability": 0.19,
+            "radicalization_index": 0.068,
+            "toxicity_severity_score": 0.084,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_091",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.411,
+            "violent_intent_probability": 0.415,
+            "radicalization_index": 0.542,
+            "toxicity_severity_score": 0.449,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_092",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.095,
+            "violent_intent_probability": 0.133,
+            "radicalization_index": 0.059,
+            "toxicity_severity_score": 0.065,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_093",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.054,
+            "violent_intent_probability": 0.105,
+            "radicalization_index": 0.076,
+            "toxicity_severity_score": 0.007,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_094",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.867,
+            "violent_intent_probability": 0.895,
+            "radicalization_index": 0.712,
+            "toxicity_severity_score": 0.251,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_095",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.289,
+            "violent_intent_probability": 0.176,
+            "radicalization_index": 0.164,
+            "toxicity_severity_score": 0.348,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_096",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.088,
+            "violent_intent_probability": 0.203,
+            "radicalization_index": 0.062,
+            "toxicity_severity_score": 0.126,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_097",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.209,
+            "violent_intent_probability": 0.166,
+            "radicalization_index": 0.13,
+            "toxicity_severity_score": 0.229,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_098",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.435,
+            "violent_intent_probability": 0.44,
+            "radicalization_index": 0.594,
+            "toxicity_severity_score": 0.069,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_099",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.438,
+            "violent_intent_probability": 0.301,
+            "radicalization_index": 0.475,
+            "toxicity_severity_score": 0.382,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_100",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.237,
+            "violent_intent_probability": 0.183,
+            "radicalization_index": 0.11,
+            "toxicity_severity_score": 0.082,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_101",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.123,
+            "violent_intent_probability": 0.203,
+            "radicalization_index": 0.055,
+            "toxicity_severity_score": 0.079,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_102",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.288,
+            "violent_intent_probability": 0.158,
+            "radicalization_index": 0.148,
+            "toxicity_severity_score": 0.02,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_103",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.399,
+            "violent_intent_probability": 0.409,
+            "radicalization_index": 0.627,
+            "toxicity_severity_score": 0.476,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_104",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.097,
+            "violent_intent_probability": 0.114,
+            "radicalization_index": 0.059,
+            "toxicity_severity_score": 0.079,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_105",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.044,
+            "violent_intent_probability": 0.021,
+            "radicalization_index": 0.003,
+            "toxicity_severity_score": 0.121,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_106",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.073,
+            "violent_intent_probability": 0.028,
+            "radicalization_index": 0.001,
+            "toxicity_severity_score": 0.065,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_107",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.025,
+            "violent_intent_probability": 0.049,
+            "radicalization_index": 0.009,
+            "toxicity_severity_score": 0.056,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_108",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.522,
+            "violent_intent_probability": 0.418,
+            "radicalization_index": 0.553,
+            "toxicity_severity_score": 0.369,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_109",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.133,
+            "violent_intent_probability": 0.186,
+            "radicalization_index": 0.094,
+            "toxicity_severity_score": 0.04,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_110",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.097,
+            "violent_intent_probability": 0.193,
+            "radicalization_index": 0.058,
+            "toxicity_severity_score": 0.072,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_111",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.072,
+            "violent_intent_probability": 0.214,
+            "radicalization_index": 0.086,
+            "toxicity_severity_score": 0.043,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_112",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.415,
+            "violent_intent_probability": 0.544,
+            "radicalization_index": 0.499,
+            "toxicity_severity_score": 0.37,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_113",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.124,
+            "violent_intent_probability": 0.147,
+            "radicalization_index": 0.076,
+            "toxicity_severity_score": 0.131,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_114",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.037,
+            "violent_intent_probability": 0.039,
+            "radicalization_index": 0.012,
+            "toxicity_severity_score": 0.043,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_115",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.283,
+            "violent_intent_probability": 0.139,
+            "radicalization_index": 0.138,
+            "toxicity_severity_score": 0.13,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_116",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.539,
+            "violent_intent_probability": 0.376,
+            "radicalization_index": 0.58,
+            "toxicity_severity_score": 0.255,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_117",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.5,
+            "violent_intent_probability": 0.516,
+            "radicalization_index": 0.5,
+            "toxicity_severity_score": 0.218,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_118",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.79,
+            "violent_intent_probability": 0.895,
+            "radicalization_index": 0.852,
+            "toxicity_severity_score": 0.042,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_119",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.43,
+            "violent_intent_probability": 0.387,
+            "radicalization_index": 0.463,
+            "toxicity_severity_score": 0.168,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_120",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.249,
+            "violent_intent_probability": 0.192,
+            "radicalization_index": 0.115,
+            "toxicity_severity_score": 0.316,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_121",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.755,
+            "violent_intent_probability": 0.885,
+            "radicalization_index": 0.773,
+            "toxicity_severity_score": 0.186,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_122",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.842,
+            "violent_intent_probability": 0.903,
+            "radicalization_index": 0.709,
+            "toxicity_severity_score": 0.778,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_123",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.439,
+            "violent_intent_probability": 0.541,
+            "radicalization_index": 0.579,
+            "toxicity_severity_score": 0.285,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_124",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.114,
+            "violent_intent_probability": 0.203,
+            "radicalization_index": 0.05,
+            "toxicity_severity_score": 0.067,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_125",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.143,
+            "violent_intent_probability": 0.131,
+            "radicalization_index": 0.088,
+            "toxicity_severity_score": 0.041,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_126",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.227,
+            "violent_intent_probability": 0.101,
+            "radicalization_index": 0.118,
+            "toxicity_severity_score": 0.093,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_127",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.124,
+            "violent_intent_probability": 0.11,
+            "radicalization_index": 0.053,
+            "toxicity_severity_score": 0.001,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_128",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.102,
+            "violent_intent_probability": 0.144,
+            "radicalization_index": 0.089,
+            "toxicity_severity_score": 0.024,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_129",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.167,
+            "violent_intent_probability": 0.13,
+            "radicalization_index": 0.125,
+            "toxicity_severity_score": 0.244,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_130",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.937,
+            "violent_intent_probability": 0.887,
+            "radicalization_index": 0.788,
+            "toxicity_severity_score": 0.14,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_131",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.212,
+            "violent_intent_probability": 0.113,
+            "radicalization_index": 0.11,
+            "toxicity_severity_score": 0.261,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_132",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.052,
+            "violent_intent_probability": 0.022,
+            "radicalization_index": 0.018,
+            "toxicity_severity_score": 0.151,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_133",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.161,
+            "violent_intent_probability": 0.2,
+            "radicalization_index": 0.174,
+            "toxicity_severity_score": 0.092,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_134",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.247,
+            "violent_intent_probability": 0.197,
+            "radicalization_index": 0.135,
+            "toxicity_severity_score": 0.346,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_135",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.109,
+            "violent_intent_probability": 0.131,
+            "radicalization_index": 0.064,
+            "toxicity_severity_score": 0.007,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_136",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.784,
+            "violent_intent_probability": 0.853,
+            "radicalization_index": 0.771,
+            "toxicity_severity_score": 0.881,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_137",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.207,
+            "violent_intent_probability": 0.186,
+            "radicalization_index": 0.166,
+            "toxicity_severity_score": 0.022,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_138",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.064,
+            "violent_intent_probability": 0.004,
+            "radicalization_index": 0.012,
+            "toxicity_severity_score": 0.162,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_139",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.931,
+            "violent_intent_probability": 0.879,
+            "radicalization_index": 0.777,
+            "toxicity_severity_score": 0.347,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_140",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.35,
+            "violent_intent_probability": 0.418,
+            "radicalization_index": 0.573,
+            "toxicity_severity_score": 0.22,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_141",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.039,
+            "violent_intent_probability": 0.047,
+            "radicalization_index": 0.011,
+            "toxicity_severity_score": 0.098,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_142",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.79,
+            "violent_intent_probability": 0.852,
+            "radicalization_index": 0.706,
+            "toxicity_severity_score": 0.011,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_143",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.505,
+            "violent_intent_probability": 0.373,
+            "radicalization_index": 0.626,
+            "toxicity_severity_score": 0.109,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_144",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.446,
+            "violent_intent_probability": 0.3,
+            "radicalization_index": 0.535,
+            "toxicity_severity_score": 0.325,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_145",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.114,
+            "violent_intent_probability": 0.107,
+            "radicalization_index": 0.054,
+            "toxicity_severity_score": 0.079,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_146",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.146,
+            "violent_intent_probability": 0.218,
+            "radicalization_index": 0.077,
+            "toxicity_severity_score": 0.001,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_147",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.257,
+            "violent_intent_probability": 0.137,
+            "radicalization_index": 0.136,
+            "toxicity_severity_score": 0.088,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_148",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.243,
+            "violent_intent_probability": 0.101,
+            "radicalization_index": 0.136,
+            "toxicity_severity_score": 0.263,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_149",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.848,
+            "violent_intent_probability": 0.834,
+            "radicalization_index": 0.75,
+            "toxicity_severity_score": 0.132,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_150",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.496,
+            "violent_intent_probability": 0.51,
+            "radicalization_index": 0.61,
+            "toxicity_severity_score": 0.399,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_151",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.074,
+            "violent_intent_probability": 0.018,
+            "radicalization_index": 0.014,
+            "toxicity_severity_score": 0.043,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_152",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.059,
+            "violent_intent_probability": 0.05,
+            "radicalization_index": 0.003,
+            "toxicity_severity_score": 0.045,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_153",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.525,
+            "violent_intent_probability": 0.315,
+            "radicalization_index": 0.5,
+            "toxicity_severity_score": 0.116,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_154",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.103,
+            "violent_intent_probability": 0.199,
+            "radicalization_index": 0.075,
+            "toxicity_severity_score": 0.188,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_155",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.384,
+            "violent_intent_probability": 0.315,
+            "radicalization_index": 0.546,
+            "toxicity_severity_score": 0.038,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_156",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.087,
+            "violent_intent_probability": 0.033,
+            "radicalization_index": 0.019,
+            "toxicity_severity_score": 0.066,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_157",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.195,
+            "violent_intent_probability": 0.105,
+            "radicalization_index": 0.181,
+            "toxicity_severity_score": 0.116,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_158",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.086,
+            "violent_intent_probability": 0.021,
+            "radicalization_index": 0.005,
+            "toxicity_severity_score": 0.041,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_159",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.227,
+            "violent_intent_probability": 0.109,
+            "radicalization_index": 0.137,
+            "toxicity_severity_score": 0.225,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_160",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.044,
+            "violent_intent_probability": 0.025,
+            "radicalization_index": 0.002,
+            "toxicity_severity_score": 0.1,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_161",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.78,
+            "violent_intent_probability": 0.951,
+            "radicalization_index": 0.811,
+            "toxicity_severity_score": 0.46,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_162",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.172,
+            "violent_intent_probability": 0.117,
+            "radicalization_index": 0.111,
+            "toxicity_severity_score": 0.234,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_163",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.142,
+            "violent_intent_probability": 0.122,
+            "radicalization_index": 0.077,
+            "toxicity_severity_score": 0.029,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_164",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.099,
+            "violent_intent_probability": 0.031,
+            "radicalization_index": 0.007,
+            "toxicity_severity_score": 0.094,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_165",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.166,
+            "violent_intent_probability": 0.135,
+            "radicalization_index": 0.173,
+            "toxicity_severity_score": 0.142,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_166",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.018,
+            "violent_intent_probability": 0.028,
+            "radicalization_index": 0.002,
+            "toxicity_severity_score": 0.109,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_167",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.053,
+            "violent_intent_probability": 0.109,
+            "radicalization_index": 0.083,
+            "toxicity_severity_score": 0.099,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_168",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.287,
+            "violent_intent_probability": 0.175,
+            "radicalization_index": 0.113,
+            "toxicity_severity_score": 0.316,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_169",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.151,
+            "violent_intent_probability": 0.187,
+            "radicalization_index": 0.103,
+            "toxicity_severity_score": 0.144,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_170",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.018,
+            "violent_intent_probability": 0.016,
+            "radicalization_index": 0.001,
+            "toxicity_severity_score": 0.001,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_171",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.074,
+            "violent_intent_probability": 0.149,
+            "radicalization_index": 0.066,
+            "toxicity_severity_score": 0.058,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_172",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.756,
+            "violent_intent_probability": 0.951,
+            "radicalization_index": 0.841,
+            "toxicity_severity_score": 0.404,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_173",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.369,
+            "violent_intent_probability": 0.412,
+            "radicalization_index": 0.482,
+            "toxicity_severity_score": 0.397,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_174",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.089,
+            "violent_intent_probability": 0.126,
+            "radicalization_index": 0.054,
+            "toxicity_severity_score": 0.033,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_175",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.791,
+            "violent_intent_probability": 0.86,
+            "radicalization_index": 0.798,
+            "toxicity_severity_score": 0.83,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_176",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.826,
+            "violent_intent_probability": 0.917,
+            "radicalization_index": 0.893,
+            "toxicity_severity_score": 0.847,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_177",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.415,
+            "violent_intent_probability": 0.533,
+            "radicalization_index": 0.618,
+            "toxicity_severity_score": 0.47,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_178",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.077,
+            "violent_intent_probability": 0.008,
+            "radicalization_index": 0.008,
+            "toxicity_severity_score": 0.017,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_179",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.054,
+            "violent_intent_probability": 0.035,
+            "radicalization_index": 0.005,
+            "toxicity_severity_score": 0.147,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_180",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.806,
+            "violent_intent_probability": 0.961,
+            "radicalization_index": 0.76,
+            "toxicity_severity_score": 0.256,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_181",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.061,
+            "violent_intent_probability": 0.007,
+            "radicalization_index": 0.012,
+            "toxicity_severity_score": 0.096,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_182",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.763,
+            "violent_intent_probability": 0.938,
+            "radicalization_index": 0.709,
+            "toxicity_severity_score": 0.105,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_183",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.065,
+            "violent_intent_probability": 0.037,
+            "radicalization_index": 0.019,
+            "toxicity_severity_score": 0.06,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_184",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.074,
+            "violent_intent_probability": 0.13,
+            "radicalization_index": 0.063,
+            "toxicity_severity_score": 0.092,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_185",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.162,
+            "violent_intent_probability": 0.165,
+            "radicalization_index": 0.183,
+            "toxicity_severity_score": 0.147,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_186",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.271,
+            "violent_intent_probability": 0.134,
+            "radicalization_index": 0.107,
+            "toxicity_severity_score": 0.168,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_187",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.526,
+            "violent_intent_probability": 0.343,
+            "radicalization_index": 0.566,
+            "toxicity_severity_score": 0.111,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_188",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.122,
+            "violent_intent_probability": 0.141,
+            "radicalization_index": 0.064,
+            "toxicity_severity_score": 0.042,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_189",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.525,
+            "violent_intent_probability": 0.506,
+            "radicalization_index": 0.62,
+            "toxicity_severity_score": 0.095,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_190",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.493,
+            "violent_intent_probability": 0.439,
+            "radicalization_index": 0.569,
+            "toxicity_severity_score": 0.286,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_191",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.051,
+            "violent_intent_probability": 0.231,
+            "radicalization_index": 0.078,
+            "toxicity_severity_score": 0.123,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_192",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.065,
+            "violent_intent_probability": 0.162,
+            "radicalization_index": 0.057,
+            "toxicity_severity_score": 0.077,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_193",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.111,
+            "violent_intent_probability": 0.186,
+            "radicalization_index": 0.055,
+            "toxicity_severity_score": 0.118,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_194",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.445,
+            "violent_intent_probability": 0.527,
+            "radicalization_index": 0.518,
+            "toxicity_severity_score": 0.4,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_195",
+        "type": "Counter-Speech",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: COUNTER-SPEECH]",
+        "expected_label": "LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Counter-Speech / Reporting",
+            "threat_severity_score": 0.159,
+            "violent_intent_probability": 0.173,
+            "radicalization_index": 0.198,
+            "toxicity_severity_score": 0.135,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_196",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.057,
+            "violent_intent_probability": 0.142,
+            "radicalization_index": 0.067,
+            "toxicity_severity_score": 0.145,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_197",
+        "type": "Satire/Sports",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: SATIRE/SPORTS]",
+        "expected_label": "SAFE / LOW_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Sports / Political Satire",
+            "threat_severity_score": 0.076,
+            "violent_intent_probability": 0.193,
+            "radicalization_index": 0.092,
+            "toxicity_severity_score": 0.045,
+            "sentiment": "NEUTRAL"
+        }
+    },
+    {
+        "case_id": "CASE_198",
+        "type": "Direct Threat",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: DIRECT THREAT]",
+        "expected_label": "HIGH_THREAT",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Targeted Hate / Mobilization",
+            "threat_severity_score": 0.925,
+            "violent_intent_probability": 0.868,
+            "radicalization_index": 0.74,
+            "toxicity_severity_score": 0.566,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_199",
+        "type": "Veiled Mobilization",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: VEILED MOBILIZATION]",
+        "expected_label": "MODERATE_RISK",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Community Coordination (Veiled)",
+            "threat_severity_score": 0.418,
+            "violent_intent_probability": 0.36,
+            "radicalization_index": 0.477,
+            "toxicity_severity_score": 0.233,
+            "sentiment": "NEGATIVE"
+        }
+    },
+    {
+        "case_id": "CASE_200",
+        "type": "Civic Update",
+        "raw_text": "[BLINDED FOR FUSION EVALUATION - TYPE: CIVIC UPDATE]",
+        "expected_label": "SAFE",
+        "handoff_to_member4": {
+            "zero_shot_threat_category": "Civic Announcement",
+            "threat_severity_score": 0.031,
+            "violent_intent_probability": 0.042,
+            "radicalization_index": 0.008,
+            "toxicity_severity_score": 0.1,
+            "sentiment": "NEUTRAL"
+        }
+    }
+]
