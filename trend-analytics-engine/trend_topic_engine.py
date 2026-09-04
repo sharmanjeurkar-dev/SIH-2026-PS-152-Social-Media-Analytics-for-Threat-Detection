@@ -478,3 +478,64 @@ class TrendAndTopicEngine:
             "total_hashtags_analyzed": len(metrics),
             "cooccurrence_graph_edges": G_cooccur.number_of_edges(),
         }
+
+    def generate_trend_payload(
+        self,
+        analysis: Dict[str, Any],
+        lookback_hours: float = 4.0,
+        cycle_index: int = 0,
+        events_count: int = 0,
+    ) -> Dict[str, Any]:
+        """
+        Formats the standardized output intelligence payload for the Trend Analytics Engine.
+        Directly consumable by dashboards, security analysts, downstream Kafka topics, and live scrapers.
+        """
+        top_200 = analysis.get("top_200_trends", [])
+        rising = analysis.get("rising_trends", [])
+        viral = analysis.get("viral_keywords", [])
+        clusters = analysis.get("topic_clusters", [])
+        shifts = analysis.get("shifting_discussions", [])
+
+        top_surging = rising[0] if rising else (top_200[0] if top_200 else None)
+
+        scraper_directives = {}
+        if get_trending_hashtag_manager is not None:
+            try:
+                mgr = get_trending_hashtag_manager()
+                scraper_directives = {
+                    "tier1_critical_targets": mgr.get_tier1_hashtags()[:10],
+                    "query_batches_count": len(
+                        mgr.get_search_query_batches(cycle_index=cycle_index)
+                    ),
+                    "sample_query_batch": mgr.get_search_query_batches(
+                        cycle_index=cycle_index
+                    )[0]
+                    if mgr.trending_pool
+                    else "",
+                }
+            except Exception:
+                pass
+
+        serializable_clusters = []
+        for c in clusters[:6]:
+            c_dict = dict(c)
+            if isinstance(c_dict.get("all_tags"), set):
+                c_dict["all_tags"] = sorted(list(c_dict["all_tags"]))
+            serializable_clusters.append(c_dict)
+
+        return {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "window_summary": {
+                "lookback_hours": lookback_hours,
+                "events_processed": events_count,
+                "total_unique_hashtags": analysis.get("total_hashtags_analyzed", 0),
+                "cooccurrence_graph_edges": analysis.get("cooccurrence_graph_edges", 0),
+            },
+            "top_surging_threat_trend": top_surging,
+            "top_200_trending_radar": top_200,
+            "rising_trends": rising[:10],
+            "viral_keywords": viral[:10],
+            "topic_clusters": serializable_clusters,
+            "shifting_discussions": shifts,
+            "scraper_directives": scraper_directives,
+        }

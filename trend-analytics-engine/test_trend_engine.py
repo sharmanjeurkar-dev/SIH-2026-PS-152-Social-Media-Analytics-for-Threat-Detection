@@ -6,7 +6,6 @@ SIH 2026 PS:152 - National Technical Research Organisation (NTRO)
 import unittest
 
 from trend_topic_engine import TrendAndTopicEngine
-
 from trending_hashtag_manager import (
     TrendingHashtagManager,
     get_trending_hashtag_manager,
@@ -56,6 +55,26 @@ class TestTrendAnalyticsEngine(unittest.TestCase):
 
         # Verify manager reflects top 200
         self.assertEqual(len(self.manager.trending_pool), 200)
+
+    def test_generate_trend_payload(self):
+        events = [
+            {"hashtags": ["#emergencyalert", "#delhipolice"], "toxicity_score": 0.8},
+            {"hashtags": ["#emergencyalert", "#chakkajam"], "toxicity_score": 0.6},
+        ]
+        analysis = self.engine.analyze_window(events, dt_hours=1.0, top_n=200)
+        payload = self.engine.generate_trend_payload(
+            analysis, lookback_hours=4.0, events_count=len(events)
+        )
+
+        self.assertIn("timestamp", payload)
+        self.assertIn("window_summary", payload)
+        self.assertIn("top_200_trending_radar", payload)
+        self.assertIn("rising_trends", payload)
+        self.assertIn("viral_keywords", payload)
+        self.assertIn("topic_clusters", payload)
+        self.assertIn("shifting_discussions", payload)
+        self.assertIn("scraper_directives", payload)
+        self.assertEqual(payload["window_summary"]["events_processed"], 2)
 
 
 if __name__ == "__main__":
