@@ -5,39 +5,47 @@ import time
 from services import (
     ThreatAssessment,
     evaluate_news_credibility,
-    extract_keywords_from_post,
     search_and_extract_by_keyword,
     evaluate_threat
 )
 
-app = FastAPI(title="Multimodal Escalation Fusion Engine")
+app = FastAPI(title="Multimodal Escalation Fusion Engine - Production API")
 
 class SocialMediaPayload(BaseModel):
     source: str
     content: str
-    base_sentiment_score: float
+    threat_severity_score: float
+    violent_intent_probability: float
+    radicalization_index: float
+    youtube_search_keywords: list[str]
     graph_density: float
+    super_spreader_pagerank_max: float
+    bot_probability: float
+    malicious_user_probability: float
+    ordinary_user_probability: float
+    louvain_cluster_count: int
 
 @app.post("/process-chatter", response_model=ThreatAssessment)
-async def process_chatter(payload: SocialMediaPayload):
+def process_chatter(payload: SocialMediaPayload):
     try:
-        # 1. Gatekeeper: News Rating Filter
         credibility = evaluate_news_credibility(payload.content)
-        youtube_context = None
 
-        # 2. Decision Diamond: Trigger YouTube extraction if unverified/volatile
         if credibility < 0.5:
             print("Volatility threshold crossed. Triggering YT Enrichment...")
-            queries = extract_keywords_from_post(payload.content)
-            if queries:
-                youtube_context = search_and_extract_by_keyword(queries[0])
+            if payload.youtube_search_keywords:
+                extracted_video_data = search_and_extract_by_keyword(payload.youtube_search_keywords[0])
             time.sleep(1)
 
-        # 3. Final Fusion Threat Score
         assessment = evaluate_threat(
-            base_sentiment=payload.base_sentiment_score,
-            graph_data=payload.graph_density,
-            yt_context=youtube_context
+            threat_severity=payload.threat_severity_score,
+            violent_intent=payload.violent_intent_probability,
+            radicalization=payload.radicalization_index,
+            graph_density=payload.graph_density,
+            pagerank_max=payload.super_spreader_pagerank_max,
+            bot_prob=payload.bot_probability,
+            malicious_prob=payload.malicious_user_probability,
+            ordinary_prob=payload.ordinary_user_probability,
+            cluster_count=payload.louvain_cluster_count
         )
         return assessment
 

@@ -1,95 +1,96 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
+import json
 import scrapetube
 from youtube_transcript_api import YouTubeTranscriptApi
-import time
+from pydantic import BaseModel, Field
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_nvidia_ai_endpoints import ChatNVIDIA
+from fusion_engine import ThreatFusionNode
 
-# --- 1. FastAPI & Pydantic Setup ---
-app = FastAPI(title="Multimodal Escalation Fusion Engine")
+llm = ChatNVIDIA(
+    model="nvidia/nemotron-3-super-120b-a12b", 
+    temperature=0.5,
+    timeout=300.0
+)
 
-class SocialMediaPayload(BaseModel):
-    source: str
-    content: str
-    base_sentiment_score: float
-    graph_density: float
+fusion_node = ThreatFusionNode(temperature=0.5, max_retries=5)
 
-class ExtractedKeywords(BaseModel):
-    search_queries: list[str] = Field(description="1 to 2 concise YouTube search queries derived from the text")
+class NewsCredibilityAssessment(BaseModel):
+    credibility_score: float = Field(description="Float from 0.0 to 1.0")
+    is_volatile: bool = Field(description="True if high viral potential")
 
 class ThreatAssessment(BaseModel):
-    threat_level: str = Field(description="Strictly output: LOW, MEDIUM, HIGH, or CRITICAL")
-    threat_score: float = Field(description="A numerical float between 0.0 and 1.0")
-    key_escalation_factor: str = Field(description="One sentence explaining the primary risk")
-    is_anomaly: bool = Field(description="True if coordinated activity is surging")
+    threat_level: str = Field(description="Strictly: SAFE, LOW_RISK, MODERATE_RISK, or HIGH_THREAT")
+    threat_score: float = Field(description="3-decimal numerical float")
+    key_escalation_factor: str = Field(description="One sentence summary")
+    is_anomaly: bool = Field(description="True if coordinated anomaly")
 
-# --- 2. LangChain Evaluators ---
-# Ensure OPENAI_API_KEY is in your .env file
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+news_filter_prompt = ChatPromptTemplate.from_template("""
+You are a news validation and disinformation filter. 
+Analyze the post and return ONLY a valid JSON object with these exact keys:
+- "credibility_score": a float between 0.0 and 1.0
+- "is_volatile": a boolean (true or false)
 
-# News Rating Filter (Determines if YT scrape is needed)
-def evaluate_news_credibility(content: str) -> float:
-    # A mock function replacing Member 4's previous Isolation Forest logic.
-    # In production, this would be an LLM call evaluating verification status.
-    # Returning < 0.5 triggers the YouTube branch.
-    return 0.3 
-
-# Keyword Extractor
-keyword_extractor = llm.with_structured_output(ExtractedKeywords)
-keyword_prompt = ChatPromptTemplate.from_template("Extract optimal YouTube search keywords from this alert: {text}")
-keyword_chain = keyword_prompt | keyword_extractor
-
-# Final Threat Judge
-threat_judge = llm.with_structured_output(ThreatAssessment)
-threat_prompt = ChatPromptTemplate.from_template("""
-Analyze the pipeline data and assign a threat score.
-Base Sentiment: {sentiment}
-Graph Density: {graph}
-YouTube Context (if any): {yt_context}
+Post content:
+"{content}"
 """)
-threat_chain = threat_prompt | threat_judge
+news_filter_chain = news_filter_prompt | llm
 
-# --- 3. YouTube Scraper Logic ---
-def get_youtube_context(query: str) -> str:
-    print(f"Executing YouTube Discovery for: {query}")
+def evaluate_news_credibility(content: str) -> float:
     try:
-        videos = scrapetube.get_search(query=query, limit=1, sort_by="upload_date")
-        vid_id = next(videos)['videoId']
-        transcript = YouTubeTranscriptApi().fetch(vid_id, languages=['en', 'hi'])
-        text = " ".join([chunk['text'] for chunk in transcript[:5]]) # First 5 chunks
-        return f"Found related video context: {text}"
+        response = news_filter_chain.invoke({"content": content})
+        clean_text = response.content.replace("```json", "").replace("```", "").strip()
+        data = json.loads(clean_text)
+        return float(data.get("credibility_score", 0.3))
     except Exception as e:
-        return "No accessible video context found."
+        print(f"News filter fallback triggered: {e}")
+        return 0.3
 
-# --- 4. The Main Routing Endpoint ---
-@app.post("/process-chatter", response_model=ThreatAssessment)
-async def process_chatter(payload: SocialMediaPayload):
+def search_and_extract_by_keyword(query: str, max_videos: int = 1) -> str:
+    recent_query = f"{query} live breaking news"
+    print(f"Executing YouTube Discovery for: '{recent_query}'")
     try:
-        news_score = evaluate_news_credibility(payload.content)
-        youtube_context = "None required."
+        videos = scrapetube.get_search(query=recent_query, limit=max_videos, sort_by="upload_date")
+        video_entry = next(videos, None)
         
-        # The Decision Diamond
-        if news_score < 0.5:
-            print("Volatility threshold crossed. Triggering YT Enrichment...")
-            extracted = keyword_chain.invoke({"text": payload.content})
-            primary_query = extracted.search_queries[0]
-            youtube_context = get_youtube_context(primary_query)
-            # Add a small delay to prevent API rate limits if scaling up
-            time.sleep(1)
-            
-        # Final Fusion
-        final_threat = threat_chain.invoke({
-            "sentiment": payload.base_sentiment_score,
-            "graph": payload.graph_density,
-            "yt_context": youtube_context
-        })
-        
-        return final_threat
+        if not video_entry:
+            return "No matching videos found."
 
+        vid_id = video_entry['videoId']
+        yt_url = f"https://www.youtube.com/watch?v={vid_id}"
+        
+        print(f">>> [VERIFY VIDEO] Inspect source clip here: {yt_url}")
+        
+        transcript_list = YouTubeTranscriptApi.get_transcript(vid_id, languages=['en', 'hi'])
+        full_transcript = " ".join([chunk['text'] for chunk in transcript_list])        
+        return f"Full Video URL: {yt_url} | Transcript: {full_transcript}"
+        
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return f"Captions unavailable or extraction failed: {str(e)}"
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+def evaluate_threat(
+    threat_severity: float, 
+    violent_intent: float, 
+    radicalization: float, 
+    graph_density: float,
+    pagerank_max: float,
+    bot_prob: float,
+    malicious_prob: float,
+    ordinary_prob: float,
+    cluster_count: int
+) -> dict:
+    semantic_payload = {
+        "threat_severity_score": threat_severity,
+        "violent_intent_probability": violent_intent,
+        "radicalization_index": radicalization
+    }
+    
+    network_payload = {
+        "graph_density": graph_density,
+        "super_spreader_pagerank_max": pagerank_max,
+        "bot_probability": bot_prob,
+        "malicious_user_probability": malicious_prob,
+        "ordinary_user_probability": ordinary_prob,
+        "louvain_cluster_count": cluster_count
+    }
+    
+    return fusion_node.evaluate_threat(semantic_payload, network_payload)
