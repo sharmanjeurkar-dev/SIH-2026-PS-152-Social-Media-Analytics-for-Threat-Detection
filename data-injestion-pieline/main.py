@@ -13,30 +13,50 @@ Live Feed Ingestion Architecture:
 """
 
 import argparse
+import json
+import logging
 import os
 import sys
 import time
-import json
-import logging
-from datetime import datetime, timedelta, timezone
 from collections import OrderedDict
-from typing import List, Tuple, Dict, Any
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, List, Tuple
 
+# Ensure root directory is in sys.path for TrendingHashtagManager
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
+try:
+    from trending_hashtag_manager import get_trending_hashtag_manager
+except ImportError:
+    get_trending_hashtag_manager = None
+
+from models import IngestionEvent
 from producer import ThreatStreamProducer
 from stream_buffer import StreamBuffer
 from x_scraper import XScraper
-from models import IngestionEvent
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+)
 
-# 1. Target Tracking Keywords & Threat Hashtags
-TARGET_HASHTAGS = [
-    "#FlashProtest", "#DelhiPolice", "#NationalSecurity", 
-    "cyber alert", "#ShutdownCity", "#Bandh", "#Section144",
-    "#BharatBandh", "#CivilUnrest", "#PaperLeak", "#KisanAndolan"
+# 1. Fallback Static Target Keywords (used only if manager is unavailable)
+FALLBACK_TARGET_HASHTAGS = [
+    "#FlashProtest",
+    "#DelhiPolice",
+    "#NationalSecurity",
+    "#cyberalert",
+    "#ShutdownCity",
+    "#Bandh",
+    "#Section144",
+    "#BharatBandh",
+    "#CivilUnrest",
+    "#PaperLeak",
+    "#KisanAndolan",
 ]
 
-# 2. Broad Horizon Query (Captures generic trending chatter outside static hashtags)
+# 2. Broad Horizon Query (Captures generic trending chatter outside target hashtags)
 BROAD_HORIZON_QUERY = "(news OR breaking OR live OR alert OR update)"
 
 
@@ -47,6 +67,7 @@ class StatefulPostCache:
     2. Detect MUTATIONS (metric changes: retweets, likes, replies, follower counts, signal score).
     3. Skip unchanged duplicates.
     """
+
     def __init__(self, max_size=50000):
         self.cache: OrderedDict[str, Dict[str, Any]] = OrderedDict()
         self.max_size = max_size
@@ -90,7 +111,7 @@ def process_and_route_events(
     target_name: str,
     cache: StatefulPostCache,
     producer: ThreatStreamProducer,
-    buffer: StreamBuffer
+    buffer: StreamBuffer,
 ) -> Tuple[int, int]:
     """
     Handles state evaluation, Kafka publishing, and polyglot storage queueing.
@@ -123,7 +144,9 @@ def process_and_route_events(
         )
         if updated_events:
             for u in updated_events[:2]:
-                logging.info(f"    ↳ [MUTATION DETECTED] {u.post_id} -> {', '.join(u.changed_fields[:3])}")
+                logging.info(
+                    f"    ↳ [MUTATION DETECTED] {u.post_id} -> {', '.join(u.changed_fields[:3])}"
+                )
 
     return len(new_events), len(updated_events)
 
@@ -134,35 +157,71 @@ def run_single_window_cycle(
     producer: ThreatStreamProducer,
     cache: StatefulPostCache,
     buffer: StreamBuffer,
-    scraper: XScraper
+    scraper: XScraper,
+    cycle_index: int = 0,
 ) -> Dict[str, int]:
     now = datetime.now(timezone.utc)
     since_dt = now - timedelta(hours=hours)
     since_str = since_dt.strftime("%Y-%m-%d %H:%M:%S UTC")
 
+    # Load dynamic 200-trending hashtag radar
+    if get_trending_hashtag_manager is not None:
+        mgr = get_trending_hashtag_manager()
+        active_pool_size = len(mgr.trending_pool)
+        query_batches = mgr.get_search_query_batches(
+            cycle_index=cycle_index, batch_size=5
+        )
+        tier1_tags = mgr.get_tier1_hashtags()
+    else:
+        active_pool_size = len(FALLBACK_TARGET_HASHTAGS)
+        query_batches = FALLBACK_TARGET_HASHTAGS
+        tier1_tags = FALLBACK_TARGET_HASHTAGS[:5]
+
     logging.info("=" * 75)
-    logging.info(f"[*] EXECUTING LIVE FEED CYCLE: {hours}-Hour Lookback (Since {since_str})")
-    logging.info(f"[*] Target Keywords: {len(TARGET_HASHTAGS)} | Broad Horizon Cap: {broad_count} posts")
+    logging.info(
+        f"[*] EXECUTING LIVE FEED CYCLE #{cycle_index}: {hours}-Hour Lookback (Since {since_str})"
+    )
+    logging.info(
+        f"[*] Dynamic Trending Radar: {active_pool_size} Hashtags | "
+        f"Scraper Query Batches: {len(query_batches)} | Broad Horizon Cap: {broad_count} posts"
+    )
     logging.info("=" * 75)
 
     cycle_new = 0
     cycle_updated = 0
 
-    # 1. Targeted Keywords (Full Horizon)
-    logging.info("\n--- PHASE 1: Targeted Keyword Extraction (Full Horizon) ---")
-    for target in TARGET_HASHTAGS:
-        query = f"{target} since:{since_dt.strftime('%Y-%m-%d_%H:%M:%S')}"
-        raw_events = scraper.scrape_live(query, count=50, allow_simulation_fallback=True, lookback_hours=hours)
-        n, u = process_and_route_events(raw_events, target, cache, producer, buffer)
+    # 1. Targeted 200-Hashtag Extraction (Prioritized & Batched)
+    logging.info(
+        f"\n--- PHASE 1: Dynamic Trending Extraction ({len(query_batches)} Batched Queries Across 200-Tag Radar) ---"
+    )
+    for batch_target in query_batches:
+        query = f"{batch_target} since:{since_dt.strftime('%Y-%m-%d_%H:%M:%S')}"
+        raw_events = scraper.scrape_live(
+            query, count=25, allow_simulation_fallback=True, lookback_hours=hours
+        )
+        n, u = process_and_route_events(
+            raw_events, batch_target[:35], cache, producer, buffer
+        )
         cycle_new += n
         cycle_updated += u
 
     # 2. Broad Horizon Extraction (Outside Keywords)
-    logging.info(f"\n--- PHASE 2: Broad Horizon Extraction ({broad_count} Posts Outside Target Tags) ---")
-    exclusions = " ".join([f"-{tag.lstrip('#')}" for tag in TARGET_HASHTAGS if not " " in tag])
+    logging.info(
+        f"\n--- PHASE 2: Broad Horizon Extraction ({broad_count} Posts Outside Critical Tier-1 Tags) ---"
+    )
+    exclusions = " ".join(
+        [f"-{tag.lstrip('#')}" for tag in tier1_tags[:10] if not " " in tag]
+    )
     broad_query = f"{BROAD_HORIZON_QUERY} {exclusions} since:{since_dt.strftime('%Y-%m-%d_%H:%M:%S')}"
-    raw_broad_events = scraper.scrape_live(broad_query, count=broad_count, allow_simulation_fallback=True, lookback_hours=hours)
-    n_broad, u_broad = process_and_route_events(raw_broad_events, "Broad Horizon", cache, producer, buffer)
+    raw_broad_events = scraper.scrape_live(
+        broad_query,
+        count=broad_count,
+        allow_simulation_fallback=True,
+        lookback_hours=hours,
+    )
+    n_broad, u_broad = process_and_route_events(
+        raw_broad_events, "Broad Horizon", cache, producer, buffer
+    )
     cycle_new += n_broad
     cycle_updated += u_broad
 
@@ -170,7 +229,7 @@ def run_single_window_cycle(
     flushed = buffer.flush_now()
     logging.info("\n" + "=" * 75)
     logging.info(
-        f"[✓] Cycle Complete | New Posts Saved: {cycle_new} | "
+        f"[✓] Cycle #{cycle_index} Complete | New Posts Saved: {cycle_new} | "
         f"Updated Posts Forwarded to Kafka: {cycle_updated} | Total Flushed: {flushed}"
     )
     logging.info("=" * 75)
@@ -186,12 +245,16 @@ def run_continuous_live_daemon(
     cache: StatefulPostCache,
     buffer: StreamBuffer,
     scraper: XScraper,
-    max_cycles: int = 0
+    max_cycles: int = 0,
 ):
     logging.info("=" * 75)
     logging.info("  NTRO SOCIAL MEDIA ANALYTICS - MEMBER 1 LIVE STREAMING DAEMON")
-    logging.info(f"  Cycle Interval: {interval_minutes} minutes | Sliding Window: {lookback_hours} hours")
-    logging.info(f"  Broad Horizon Batch: {broad_count} posts | Destination: Kafka ('raw-threat-stream')")
+    logging.info(
+        f"  Cycle Interval: {interval_minutes} minutes | Sliding Window: {lookback_hours} hours"
+    )
+    logging.info(
+        f"  Broad Horizon Batch: {broad_count} posts | Destination: Kafka ('raw-threat-stream')"
+    )
     logging.info("=" * 75)
 
     buffer.start_background_flusher()
@@ -208,7 +271,8 @@ def run_continuous_live_daemon(
                 producer=producer,
                 cache=cache,
                 buffer=buffer,
-                scraper=scraper
+                scraper=scraper,
+                cycle_index=cycle_count,
             )
 
             stats = buffer.get_stats()
@@ -216,10 +280,14 @@ def run_continuous_live_daemon(
             print(json.dumps(stats, indent=2))
 
             if max_cycles and cycle_count >= max_cycles:
-                logging.info(f"[*] Reached maximum requested cycles ({max_cycles}). Stopping daemon.")
+                logging.info(
+                    f"[*] Reached maximum requested cycles ({max_cycles}). Stopping daemon."
+                )
                 break
 
-            logging.info(f"[*] Sleeping {interval_minutes} minutes until next sliding window poll...\n")
+            logging.info(
+                f"[*] Sleeping {interval_minutes} minutes until next sliding window poll...\n"
+            )
             time.sleep(interval_seconds)
 
     except KeyboardInterrupt:
@@ -232,7 +300,7 @@ def run_continuous_live_daemon(
 
 def run_demo(hours: int = 4, broad_count: int = 10):
     logging.info("=" * 75)
-    logging.info("  RUNNING LIVE FEED & MUTATION DETECTION DEMONSTRATION")
+    logging.info("  RUNNING LIVE FEED & DYNAMIC 200-HASHTAG ROTATION DEMONSTRATION")
     logging.info("=" * 75)
 
     producer = ThreatStreamProducer()
@@ -240,22 +308,69 @@ def run_demo(hours: int = 4, broad_count: int = 10):
     buffer = StreamBuffer(base_data_dir="data", batch_size=20, flush_interval_secs=1.0)
     scraper = XScraper(timeout=8)
 
-    logging.info("\n--- STEP 1: Initial Poll (Blind Ingestion of New Posts) ---")
-    run_single_window_cycle(hours=hours, broad_count=broad_count, producer=producer, cache=cache, buffer=buffer, scraper=scraper)
+    logging.info("\n--- STEP 1: Initial Poll Cycle #0 (Tier-1 + Slice-1 Rotation) ---")
+    run_single_window_cycle(
+        hours=hours,
+        broad_count=broad_count,
+        producer=producer,
+        cache=cache,
+        buffer=buffer,
+        scraper=scraper,
+        cycle_index=0,
+    )
 
-    logging.info("\n--- STEP 2: Subsequent Poll (Detecting Changed Values & Pushing to Kafka) ---")
-    run_single_window_cycle(hours=hours, broad_count=broad_count, producer=producer, cache=cache, buffer=buffer, scraper=scraper)
+    logging.info(
+        "\n--- STEP 2: Subsequent Poll Cycle #1 (Tier-1 + Slice-2 Rotation & Value Mutation Check) ---"
+    )
+    run_single_window_cycle(
+        hours=hours,
+        broad_count=broad_count,
+        producer=producer,
+        cache=cache,
+        buffer=buffer,
+        scraper=scraper,
+        cycle_index=1,
+    )
 
-    logging.info("\n[✓] Live demonstration completed successfully.")
+    logging.info(
+        "\n[✓] Dynamic 200-hashtag rotation demonstration completed successfully."
+    )
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Member 1: Live Feed Extraction & Metric Change Ingestion (SIH PS:152)")
-    parser.add_argument("--mode", choices=["live", "once", "demo"], default="live", help="Execution mode (default: live)")
-    parser.add_argument("--interval", type=float, default=15.0, help="Polling interval in minutes (default: 15.0)")
-    parser.add_argument("--hours", type=int, default=4, help="Sliding lookback window in hours (default: 4)")
-    parser.add_argument("--broad-count", type=int, default=500, help="Broad horizon post cap outside target hashtags (default: 500)")
-    parser.add_argument("--max-cycles", type=int, default=0, help="Maximum daemon cycles to run (0 for infinite)")
+    parser = argparse.ArgumentParser(
+        description="Member 1: Live Feed Extraction & Metric Change Ingestion (SIH PS:152)"
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["live", "once", "demo"],
+        default="live",
+        help="Execution mode (default: live)",
+    )
+    parser.add_argument(
+        "--interval",
+        type=float,
+        default=15.0,
+        help="Polling interval in minutes (default: 15.0)",
+    )
+    parser.add_argument(
+        "--hours",
+        type=int,
+        default=4,
+        help="Sliding lookback window in hours (default: 4)",
+    )
+    parser.add_argument(
+        "--broad-count",
+        type=int,
+        default=500,
+        help="Broad horizon post cap outside target hashtags (default: 500)",
+    )
+    parser.add_argument(
+        "--max-cycles",
+        type=int,
+        default=0,
+        help="Maximum daemon cycles to run (0 for infinite)",
+    )
 
     args = parser.parse_args()
 
@@ -273,7 +388,7 @@ def main():
             producer=producer,
             cache=cache,
             buffer=buffer,
-            scraper=scraper
+            scraper=scraper,
         )
     else:
         run_continuous_live_daemon(
@@ -284,7 +399,7 @@ def main():
             cache=cache,
             buffer=buffer,
             scraper=scraper,
-            max_cycles=args.max_cycles
+            max_cycles=args.max_cycles,
         )
 
 
