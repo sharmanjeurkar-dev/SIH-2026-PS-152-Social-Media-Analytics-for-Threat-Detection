@@ -1,0 +1,102 @@
+# ==============================================================================
+# Unified Infrastructure Stack: NTRO Social Media Threat Detection Engine
+# SIH 2026 PS:152 - National Technical Research Organisation
+# Combines:
+#   1. Apache Zookeeper (Distributed Coordinator)
+#   2. Apache Kafka (High-Throughput Streaming Bus)
+#   3. Neo4j Graph Database + Graph Data Science (GDS) Plugin
+# ==============================================================================
+
+networks:
+  ntro-network:
+    name: ntro_network
+    driver: bridge
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. Zookeeper (Kafka Coordination Service)
+  # ----------------------------------------------------------------------------
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: ntro_zookeeper
+    restart: unless-stopped
+    networks:
+      - ntro-network
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - ./data/zookeeper/data:/var/lib/zookeeper/data
+      - ./data/zookeeper/log:/var/lib/zookeeper/log
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "2181"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------------------------------------
+  # 2. Apache Kafka Broker (Streaming Ingestion & Feedback Bus)
+  # ----------------------------------------------------------------------------
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: ntro_kafka
+    restart: unless-stopped
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    networks:
+      - ntro-network
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    volumes:
+      - ./data/kafka/data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  # ----------------------------------------------------------------------------
+  # 3. Neo4j Graph Database (GNN Topology, Communities & Co-occurrences)
+  # ----------------------------------------------------------------------------
+  neo4j:
+    image: neo4j:5.18.0-community
+    container_name: ntro_graph_db
+    restart: unless-stopped
+    networks:
+      - ntro-network
+    ports:
+      - "7474:7474"   # HTTP Web Browser Console
+      - "7687:7687"   # Bolt Binary Protocol for Graph Driver
+    environment:
+      - NEO4J_AUTH=neo4j/ntro_secure_password_2026
+      - NEO4J_PLUGINS=["graph-data-science"]
+      - NEO4J_server_default__listen__address=0.0.0.0
+      - NEO4J_server_bolt_listen__address=0.0.0.0:7687
+      - NEO4J_server_memory_heap_initial__size=1G
+      - NEO4J_server_memory_heap_max__size=2G
+      - NEO4J_server_memory_pagecache_size=1G
+      - NEO4J_dbms_security_procedures_unrestricted=gds.*
+      - NEO4J_dbms_security_procedures_allowlist=gds.*
+    volumes:
+      - ./data/neo4j:/data
+      - ./data/logs:/logs
+    healthcheck:
+      test: ["CMD-SHELL", "cypher-shell -u neo4j -p ntro_secure_password_2026 'RETURN 1' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
