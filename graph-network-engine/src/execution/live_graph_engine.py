@@ -21,7 +21,19 @@ try:
 except ImportError:
     KafkaConsumer = None
 
-from src.GraphAlgorithms.trend_topic_engine import TrendAndTopicEngine
+# Resolve path to trend-analytics-engine
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+TREND_ENGINE_DIR = os.path.join(ROOT_DIR, "trend-analytics-engine")
+if TREND_ENGINE_DIR not in sys.path:
+    sys.path.insert(0, TREND_ENGINE_DIR)
+
+try:
+    from trend_topic_engine import TrendAndTopicEngine
+except ImportError:
+    from trend_analytics_engine.trend_topic_engine import TrendAndTopicEngine
+
 from src.GraphDB.connection import Neo4jConnection
 from src.GraphDB.ingestion import EnrichedSocialEvent, GraphInjestor
 from src.model.gnnmodel import ThreatGraphSAGE

@@ -22,15 +22,22 @@ from collections import OrderedDict
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Tuple
 
-# Ensure root directory is in sys.path for TrendingHashtagManager
+# Ensure root and trend-analytics-engine directories are in sys.path
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if ROOT_DIR not in sys.path:
-    sys.path.insert(0, ROOT_DIR)
+TREND_DIR = os.path.join(ROOT_DIR, "trend-analytics-engine")
+for p in [ROOT_DIR, TREND_DIR]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
 try:
     from trending_hashtag_manager import get_trending_hashtag_manager
 except ImportError:
-    get_trending_hashtag_manager = None
+    try:
+        from trend_analytics_engine.trending_hashtag_manager import (
+            get_trending_hashtag_manager,
+        )
+    except ImportError:
+        get_trending_hashtag_manager = None
 
 from models import IngestionEvent
 from producer import ThreatStreamProducer
